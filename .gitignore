@@ -1,6 +1,7 @@
 #### joe made this: https://goel.io/joe
 
 #####=== TeX ===#####
+*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -120,4 +121,3 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
-
