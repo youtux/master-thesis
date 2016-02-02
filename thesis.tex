@@ -14,7 +14,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % formato FRONTE RETRO
-\documentclass[epsfig,a4paper,11pt,titlepage,twoside,openany]{book}
+\IfFileExists{./.draft}{
+  \documentclass[epsfig,a4paper,11pt,titlepage,twoside,openany,draft]{book}
+}{
+  \documentclass[epsfig,a4paper,11pt,titlepage,twoside,openany]{book}
+}
+
 \usepackage{epsfig}
 \usepackage{plain}
 \usepackage{setspace}
