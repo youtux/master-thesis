@@ -6,18 +6,33 @@ TODO
 
 
 \section{Wikipedia}
-\label{sec:wikistructure}
-In this section we describe the various relevant entities that compose Wikipedia.
+\label{sec:wiki}
+Wikipedia is a free-access, free-content Internet encyclopedia, supported and hosted by the non-profit Wikimedia Foundation.
+Contributors can access the site can edit most of its articles.
+Wikipedia is ranked among the ten most popular websites, and constitutes the Internet's largest and most popular general reference work.
+%TODO: CITEME: Bill Tancer (May 1, 2007). "Look Who's Using Wikipedia". Time. Retrieved December 1, 2007. The sheer volume of content [...] is partly responsible for the site's dominance as an online reference. When compared to the top 3,200 educational reference sites in the US, Wikipedia is No. 1, capturing 24.3% of all visits to the category. Cf. Bill Tancer (Global Manager, Hitwise), "Wikipedia, Search and School Homework", Hitwise, March 1, 2007.
 
+\subsection{Structure}
+\label{ssec:wiki_structure}
+In this section we describe the various entities that compose Wikipedia which are relevant to our analysis.
+
+The basic block of Wikipedia is the \emph{page}.
+Pages are plain text document that can be customized using the wiki markup language, which is rendered when a user requests it.
 A Wikipedia \emph{article}, or entry, is a page that has encyclopedic information on it.
 A well-written encyclopedia article identifies a notable encyclopedic topic, summarizes that topic comprehensively, contains references to reliable sources, and links to other related topics.
 
-Articles belong to the main namespace of Wikipedia pages (also called ``article namespace'' or simply ``mainspace'').
-The main namespace is the namespace of Wikipedia that contains the encyclopedia proper — that is, where ``live'' Wikipedia articles reside.
-The main namespace is the default namespace and does not use a prefix in article page names.
-This is distinct from other namespaces where page names are always prefixed by an indicator of the particular namespace in which the page resides.
-For example, all user pages are prefixed by \textbf{User:}, their talk pages by \textbf{User talk:}, templates by \textbf{Template:} and various types of internal administrative pages by \textbf{Wikipedia:}.
-Thus, any page created that lacks of such a prefix will automatically be placed under the article namespace.
+A Wikipedia \emph{namespace} is a set of Wikipedia pages whose names begin with a particular reserved word recognized by the MediaWiki software (followed by a colon).
+For example, in the user namespace all titles begin with ``User:''.
+In the case of the article (or main) namespace, in which encyclopedia articles appear, the reserved word and colon are absent.
+
+At the time of writing, Wikipedia has 35 current namespaces: 16 subject namespaces, 16 corresponding talk namespaces, 2 virtual namespaces, and 1 special namespace.
+
+Pages under the virtual namespaces (``Special'' and ``Media'') are not actually stored in the wikipedia database.
+Special pages are created on demand by the MediaWiki software: for instance, ``Special:Log'' lists the log of all the activities on Wikipedia.
+Files like images, videos and other assets live under the ``Media'' namespace.
+
+Every time a contributor edits a page, a new \emph{revision} is created.
+It contains the text of the new version, as well as information about the contributor, the timestamp, the comment and others.
 
 \section{Microsoft academic graphs}
 \label{sec:mag}
