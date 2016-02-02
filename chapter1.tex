@@ -34,8 +34,23 @@ Files like images, videos and other assets live under the ``Media'' namespace.
 Every time a contributor edits a page, a new \emph{revision} is created.
 It contains the text of the new version, as well as information about the contributor, the timestamp, the comment and others.
 
-\section{Microsoft academic graphs}
+\section{Microsoft Academic Service}
 \label{sec:mag}
+Microsoft Academic Search is an experimental research service developed by Microsoft Research to explore how scholars, scientists, students, and practitioners find academic content, researchers, institutions, and activities.
+According to the authors, the service has already indexed 83 million papers achieving an above-95\% accuracy~\cite{Sinha2015}.
+The service can also display the key relationships between and among subjects, content, and authors, highlighting the critical links that help define scientific research.
+
+For these reasons, we use this service in our analysis.
+The dataset is available under the name of ``Microsoft Academic Graph''.
+
+The available entities relevant to our research are the following:
+\begin{description*}
+    \item[Papers] Contains information like the name of the paper, the publication date, its \ac{DOI} (if available), the journal or the conference where it appeared on.
+    \item[PaperReferences] Contains the references between papers.
+    \item[Journals] Contains the list of journals.
+    \item[Conference] Contains the list of conferences.
+\end{description*}
+
 
 
 \section{Related work}
