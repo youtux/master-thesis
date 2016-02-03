@@ -2,7 +2,7 @@
 
 \chapter{Background and related work}
 \label{cha:background}
-TODO
+\todo{Background}
 
 
 \section{Wikipedia}
@@ -10,17 +10,18 @@ TODO
 Wikipedia is a free-access, free-content Internet encyclopedia, supported and hosted by the non-profit Wikimedia Foundation.
 Contributors can access the site can edit most of its articles.
 Wikipedia is ranked among the ten most popular websites, and constitutes the Internet's largest and most popular general reference work.
-%TODO: CITEME: Bill Tancer (May 1, 2007). "Look Who's Using Wikipedia". Time. Retrieved December 1, 2007. The sheer volume of content [...] is partly responsible for the site's dominance as an online reference. When compared to the top 3,200 educational reference sites in the US, Wikipedia is No. 1, capturing 24.3% of all visits to the category. Cf. Bill Tancer (Global Manager, Hitwise), "Wikipedia, Search and School Homework", Hitwise, March 1, 2007.
+\todo{CITEME: Bill Tancer (May 1, 2007). "Look Who's Using Wikipedia". Time. Retrieved December 1, 2007. The sheer volume of content [...] is partly responsible for the site's dominance as an online reference. When compared to the top 3,200 educational reference sites in the US, Wikipedia is No. 1, capturing 24.3\% of all visits to the category. Cf. Bill Tancer (Global Manager, Hitwise), "Wikipedia, Search and School Homework", Hitwise, March 1, 2007.}
 
-\subsection{Structure}
-\label{ssec:wiki_structure}
 In this section we describe the various entities that compose Wikipedia which are relevant to our analysis.
 
+\paragraph{Pages}
 The basic block of Wikipedia is the \emph{page}.
 Pages are plain text document that can be customized using the wiki markup language, which is rendered when a user requests it.
+
 A Wikipedia \emph{article}, or entry, is a page that has encyclopedic information on it.
 A well-written encyclopedia article identifies a notable encyclopedic topic, summarizes that topic comprehensively, contains references to reliable sources, and links to other related topics.
 
+\paragraph{Namespaces}
 A Wikipedia \emph{namespace} is a set of Wikipedia pages whose names begin with a particular reserved word recognized by the MediaWiki software (followed by a colon).
 For example, in the user namespace all titles begin with ``User:''.
 In the case of the article (or main) namespace, in which encyclopedia articles appear, the reserved word and colon are absent.
@@ -31,8 +32,30 @@ Pages under the virtual namespaces (``Special'' and ``Media'') are not actually 
 Special pages are created on demand by the MediaWiki software: for instance, ``Special:Log'' lists the log of all the activities on Wikipedia.
 Files like images, videos and other assets live under the ``Media'' namespace.
 
-Every time a contributor edits a page, a new \emph{revision} is created.
+\paragraph{Contributors}
+Every time a \emph{contributor} edits a page, a new \emph{revision} is created.
 It contains the text of the new version, as well as information about the contributor, the timestamp, the comment and others.
+
+Contributor can either be humans or bots.
+Bots are usually employed to to repetitive and mundane tasks, such as correcting obvious typos, updating listified pages of categories or revert vandalisms.
+
+\paragraph{Vandalism}
+\emph{Vandalism} may come in different forms: pages may be subject to malevolent edits, deletions or moves.
+This is a serious problem for any analysis and requires some effort to reduce the impact it has in our results.
+
+\todo{Add paper describing wikipedia vandalism and trolls.}
+
+\paragraph{Redirects}
+\todo{Explain redirects.}
+\cite{Hill2014}
+
+\section{Wikimedia page view statistics}
+\label{sec:pagecounts}
+Back in 2007, Domas Mituzas, a long-time volunteer database administrator for the Wikimedia Foundation, started generating statistics about the views of Wikimedia projects.
+These statistics are now maintained by the Analytics Team\footnote{\url{https://www.mediawiki.org/wiki/Analytics}}.
+The dataset contains the number of non-unique visitors for each page for all the Wikimedia projects, aggregated by hour.
+
+Unfortunately this dataset needs a lot of cleaning and, in order to be used effectively, needs to be reordered, as described in Sect.~\ref{sec:reordering_pagecounts}.
 
 \section{Microsoft Academic Service}
 \label{sec:mag}
@@ -41,7 +64,7 @@ According to the authors, the service has already indexed 83 million papers achi
 The service can also display the key relationships between and among subjects, content, and authors, highlighting the critical links that help define scientific research.
 
 For these reasons, we use this service in our analysis.
-The dataset is available under the name of ``Microsoft Academic Graph''.
+The dataset is available under the name of ``Microsoft Academic Graph''\footnote{\url{http://research.microsoft.com/en-us/projects/mag/}}.
 
 The available entities relevant to our research are the following:
 \begin{description*}
@@ -51,6 +74,15 @@ The available entities relevant to our research are the following:
     \item[Conference] Contains the list of conferences.
 \end{description*}
 
+\section{Big data}
+\label{sec:bigdata}
+
+\todo{Explain what big data is.}
+
+The datasets used in our analysis belongs to the ``big data'' category.
+In fact, some of them are so large that a single processor machine can not analyze them in a reasonable time.
+For instance, as described in Sect.~\ref{sec:reordering_pagecounts}, the cleaning and reordering of page views could take years \todo{verify this} to complete on a single machine.
+To solve this problem, we make use of the UniTN Cisca cluster processing power to parallelize the task.
 
 
 \section{Related work}
