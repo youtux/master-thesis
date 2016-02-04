@@ -5,6 +5,31 @@
 
 \section{Datasets}
 \label{sec:datasets}
+\todo{Should I move the datasets description to chapter 1?}
+
+\subsection{Wikimedia dumps}
+The Wikimedia foundation creates a dump of the publicly available data of the database behind every Wikimedia wiki.
+The Wikimedia datasets used for our research are the one released the 1st of September 2015.
+
+\todo{How much in detail should I go?}
+
+\paragraph{Pages}
+The most important dataset for our purposes is the dump of all the pages, which include every revision created so far.
+The uncompressed page dumps size is 13\,387.9 GB\@; fortunately these files are compressed using 7z, with a resulting size of 105.9 GB\@.
+It is divided in 187 XML files, each of them containing several pages.
+Every file contains a ``preamble'' with various metadata and the list of page elements.
+Every page contains in turn a series of metadata, like the title, the page id, the namespace and the list of revision elements.
+The revision contains the actual text and other information.
+\todo{Do I need to put an extract of the xml as an example?}
+Thanks to its structure, it is easy to analyze the file without loading it entirely in memory.
+
+\paragraph{Redirects}
+The redirects dataset is just a SQL dump of the corresponding MySQL table that powers the Wikimedia redirect mechanism.
+Its size is just 364,33 MB uncompressed.
+\todo{Explain more}
+
+\section{\ldots}
+\todo{Explain the other datasets.}
 
 
 \section{Software}
