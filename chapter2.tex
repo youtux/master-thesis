@@ -5,7 +5,6 @@
 
 \section{Datasets}
 \label{sec:datasets}
-\todo{Should I move the datasets description to chapter 1?}
 
 \subsection{Wikimedia dumps}
 The Wikimedia foundation creates a dump of the publicly available data of the database behind every Wikimedia wiki.
@@ -13,23 +12,78 @@ The Wikimedia datasets used for our research are the one released the 1st of Sep
 
 \todo{How much in detail should I go?}
 
-\paragraph{Pages}
+\begin{table}[]
+\centering
+\caption{Size of wikipedia dump files.}
+\label{tbl:wikidumps_size}
+\begin{tabular}{@{}lrrr@{}}
+\multicolumn{1}{c}{\textbf{}} & \textbf{Compressed size} & \textbf{Uncompressed size} & \textbf{Compression ratio} \\ \midrule
+Pages dump              &     105.9 GB &   13\,387.9 GB &  0.79 \% \\
+Category links table    &       1.7 GB &        12.1 GB & 13.77 \% \\
+Page table              &       1.3 GB &         4.2 GB & 30.84 \% \\
+Redirect table          &      96.9 MB &       364.3 MB & 26.60 \%
+\end{tabular}
+\end{table}
+
+\paragraph{Pages XML dump}
 The most important dataset for our purposes is the dump of all the pages, which include every revision created so far.
-The uncompressed page dumps size is 13\,387.9 GB\@; fortunately these files are compressed using 7z, with a resulting size of 105.9 GB\@.
+As you can see in Table~\ref{tbl:wikidumps_size}, this dataset is the most large: its uncompressed size is 13\,387.9 GB\@.
 It is divided in 187 XML files, each of them containing several pages.
 Every file contains a ``preamble'' with various metadata and the list of page elements.
 Every page contains in turn a series of metadata, like the title, the page id, the namespace and the list of revision elements.
-The revision contains the actual text and other information.
-\todo{Do I need to put an extract of the xml as an example?}
+The revision contains the actual text, the contributor and other information.
+An extract of a dump is shown in Fig.~\ref{lst:page_xml_extract}.
+\todo{explain the extract}
 Thanks to its structure, it is easy to analyze the file without loading it entirely in memory.
 
-\paragraph{Redirects}
-The redirects dataset is just a SQL dump of the corresponding MySQL table that powers the Wikimedia redirect mechanism.
-Its size is just 364,33 MB uncompressed.
-\todo{Explain more}
+\begin{listing}[]
+    \inputminted[breaklines=true]{xml}{assets/page_xml_extract.xml}
+    \caption{Extract of a dump XML document.}
+    \label{lst:page_xml_extract}
+\end{listing}
 
-\section{\ldots}
-\todo{Explain the other datasets.}
+There are other datasets from Wikipedia that come in form of SQL dump files generated from the MySQL database powering Wikipedia.
+\paragraph{Redirect table}
+The redirects dataset is just a SQL dump of the corresponding MySQL table that powers the Wikimedia redirect mechanism.
+It contains all the information about page redirects, in particular the id of the page from which the redirect starts, the name of the target page and its namespace.
+
+\paragraph{Page table}
+The page table contains various metadata about pages, updated to the date of the dump.
+The features needed for our purposes are the page id, the namespace and the page title.
+
+\paragraph{Category links table}
+This table contain the membership pages to their category.
+In particular, every row has the id of the page, its category and the type of link (for example, the link ``page'' denotes that a page belongs to a category, while ``subcat'' is used for categories belonging to other categories).
+
+\section{Microsoft academic graph}
+\label{sec:mag_dataset}
+Microsoft release a dump of the dataset powering Microsoft Academic Search in form of CSV files.
+A brief overview of the size of the dataset is shown in Table~\ref{tbl:mag_size}.
+\begin{table}[]
+\centering
+\caption{Size of Microsoft academic graph dataset files.}
+\label{tbl:mag_size}
+\begin{tabular}{@{}lrrr@{}}
+\multicolumn{1}{c}{\textbf{}} & \textbf{Compressed size} & \textbf{Uncompressed size} & \textbf{Compression ratio} \\ \midrule
+Papers table                &      9.0 GB &    27.4 GB & 32.71 \% \\
+Paper references table      &      7.4 GB &    18.1 GB & 41.02 \% \\
+Paper keywords table        &      1.8 GB &     5.3 GB & 34.51 \%
+\end{tabular}
+\end{table}
+There are many entities in this dataset, and in our analysis we make use of most of them.
+
+The \emph{Papers} listing contains information like the name of the paper, the publication date, its \ac{DOI} (if available), the journal or the conference where it appeared on.
+There is a total of 120\,887\,833 papers, but only 35\,039\,319 of them contains a \ac{DOI} record (28.99\%) and, most important, only 33\,345\,644 of them have exactly one \ac{DOI} (27.58\%).
+The fact that two papers share the same \ac{DOI} should be sought in the method used by Microsoft to index them.
+It is important that a good percentage of papers have this identifier because our analysis relies on the fact that we can match publications that appear in Wikipedia, and this is done by matching the \ac{DOI} of a paper.
+
+There is another important listing in this dataset, the \emph{PaperReferences} dump.
+This table contains just two columns: the referring and the referred paper ids.
+
+Finally, there are other files that contains information about the \emph{Journals}, \emph{Conferences}, \emph{Authors}, \emph{Keywords}, etc.
+
+
+\todo{Explain that the ``conferences'' dataset is extremely biased: it seems that there are only compsci conferences}
 
 
 \section{Software}
