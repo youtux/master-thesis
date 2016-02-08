@@ -10,6 +10,7 @@
 Wikipedia is a free-access, free-content Internet encyclopedia, supported and hosted by the non-profit Wikimedia Foundation.
 Contributors can access the site can edit most of its articles.
 Wikipedia is ranked among the ten most popular websites, and constitutes the Internet's largest and most popular general reference work.
+A peer review of 42 science articles found in both Encyclopædia Britannica and Wikipedia was published in Nature in 2005, and found that Wikipedia's level of accuracy approached Encyclopedia Britannica's~\cite{Giles2005} \todo{rewrite}.
 
 \todo{CITEME\@: Bill Tancer (May 1, 2007). ``Look Who's Using Wikipedia''. Time. Retrieved December 1, 2007. The sheer volume of content [\ldots] is partly responsible for the site's dominance as an online reference. When compared to the top 3,200 educational reference sites in the US, Wikipedia is No. 1, capturing 24.3\% of all visits to the category. Cf. Bill Tancer (Global Manager, Hitwise), ``Wikipedia, Search and School Homework'', Hitwise, March 1, 2007.}
 
@@ -40,17 +41,52 @@ It contains the text of the new version, as well as information about the contri
 Contributor can either be humans or bots.
 Bots are usually employed to to repetitive and mundane tasks, such as correcting obvious typos, updating listified pages of categories or revert vandalisms.
 
-\paragraph{Vandalism}
-\emph{Vandalism} may come in different forms: pages may be subject to malevolent edits, deletions or moves.
-This is a serious problem for any analysis and requires some effort to reduce the impact it has in our results.
+\subsection{Redirects}
+A redirect is a page that has no content itself but sends the reader to another page, usually an article or section of an article.
+Redirects can be created for many reasons, among which:
+\begin{description*}
+    \item[Alternative names] An entity may be known as different names.
+    For instance, the page \emph{Edison Arantes do Nascimento} is a redirect to \emph{Pelé}, which is the most appropriate article title according to Wikipedia rules.
+    \item[Abbreviations] Many terms have an abbreviate form, but the title should be the the extended name.
+    For instance, \emph{US} redirects to \emph{United States}.
+    \item[Alternative spellings] There are names that refer to the same entity, for example \emph{Color} and \emph{Colour}.
+    \item[Likely misspellings] Some names are commonly misspelled, and in order to not give an error page to the user, they redirects to the correctly spelled page.
+    \item[Technical reasons] Some redirects are created because of technical issues.
+    For example, there are redirects for pages with non-ASCII letters that have only ASCII letters in the title.
+    Another reason is because of the software underneath Wikipedia.
+    First versions of ``UseModWIki'' needed pages to use the ``CamelCase'' convention for the name~\cite{wiki:camelcase}.
+    This is not an issue anymore, but old page names are kept and they redirect to the non-camelcase name.
+\end{description*}
 
-\todo{Add paper describing wikipedia vandalism and trolls.}
+To mark a page as a redirect, it is necessary to include the string \textbf{\#redirect: [[Target]]}, where \textbf{Target} is the page to which the reader will be redirected.
 
-\paragraph{Redirects}
-\todo{Explain redirects.}
-\cite{Hill2014}
+A recent study~\cite{Hill2014} shows that redirect pages play an important role in Wikipedia, and must keep in consideration when analyzing it.
+We have replicated the results of the paper (see Table~\ref{tbl:redirects}) using the latest data available and results are consistent with the one given by the paper: the 59,25\% of Wikipedia articles are redirects.
+This is particularly important in our analysis when we analyze the views of pages, because we must follow the redirects to get the correct count.
+\todo{Maybe this needs an more detailed view in the results chapter?}
 
-\todo{Explain more stuff.}
+\subsection{Vandalism}
+As a wiki, every one of its articles can be edited by anyone – there is no credential check ing.
+Changes are visible to everyone immediately, without any review cycle.
+This comes at a cost: \emph{vandalism}.
+Vandalism may come in different forms: pages may be subject to malevolent edits, deletions or moves.
+Priedhorsky et al.~\cite{Priedhorsky2007} studied this phenomenon and recommended policies that may help to mitigate the problem.
+The paper shows some blatant examples of vandalism: for example, Adam Curry allegedly altered pages about the history of podcasting in order to promote his role and diminish that of others, Jeffrey Seigenthaler's article stated falsely for months that he was involved in the John F. Kennedy assassination, and the comedian Stephen Colbert has even conducted humorous tutorials on how to vandalize Wikipedia.
+
+This is a serious problem for any analysis and requires some extra effort to reduce the impact it has in our results.
+
+\begin{table}[]
+\centering
+\caption{Count of Wikipedia redirects as of 1/9/2015}
+\label{tbl:redirects}
+\begin{tabular}{llll}
+\multicolumn{1}{c}{\textbf{}}          & \multicolumn{1}{c}{\textbf{\# Redirects}} & \multicolumn{1}{c}{\textbf{\# Pages}} & \textbf{Percentage} \\ \hline
+\multicolumn{1}{l|}{All namespaces}    & 8350978                                & 37178009                               & 22,46\%             \\
+\multicolumn{1}{l|}{Article namespace} & 7075838                                & 11941857                               & 59,25\%
+\end{tabular}
+\end{table}
+
+
 
 \section{Wikimedia page view statistics}
 \label{sec:pagecounts}
