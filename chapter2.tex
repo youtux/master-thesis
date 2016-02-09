@@ -7,10 +7,9 @@
 \label{sec:datasets}
 
 \subsection{Wikimedia dumps}
-The Wikimedia foundation creates a dump of the publicly available data of the database behind every Wikimedia wiki.
-The Wikimedia datasets used for our research are the one released the 1st of September 2015.
-
-\todo{How much in detail should I go?}
+The Wikimedia foundation creates a dump of the publicly available data of Wikipedia and all WMF projects on a regular basis.
+English Wikipedia is dumped once a month, while smaller projects are often dumped twice a month.
+The Wikimedia datasets used for our research are the one released the 1st of September 2015\footnote{\url{https://dumps.wikimedia.org/enwiki/20150901/}}.
 
 \begin{table}[]
 \centering
@@ -28,11 +27,12 @@ Redirect table          &      96.9 MB &       364.3 MB & 26.60 \%
 \paragraph{Pages XML dump}
 The most important dataset for our purposes is the dump of all the pages, which include every revision created so far.
 As you can see in Table~\ref{tbl:wikidumps_size}, this dataset is the most large: its uncompressed size is 13\,387.9 GB\@.
-It is divided in 187 XML files, each of them containing several pages.
+It is divided in 187 XML files compressed with 7zip, each of them containing several pages.
 An extract of a dump is shown in Listing~\ref{lst:page_xml_extract}.
 Every file contains a ``preamble'' with various metadata.
 We can find the XML Schema location, the name of the project inside the \mintinline{xml}{<siteinfo>} tag, the list of namespaces up-to-date.
 This is followed by a sequence of \mintinline{xml}{<page>} elements, each of them describing a Wikimedia page: its title, the namespace and the id.
+Notice that if the title contains a space, it is not replaced by an underscore.
 After that there is sequence of \mintinline{xml}{<revision>} tags.
 A revision is identified by an identifier, and usually have also reference (parent id) to the previous reference.
 \todo{show that page revision graph is cyclic}
@@ -48,28 +48,37 @@ Thanks to the structure of the file, it is easy to analyze the file iterating ov
     \label{lst:page_xml_extract}
 \end{listing}
 
+\paragraph{Database dumps}
 There are other datasets from Wikipedia that come in form of SQL dump files generated from the MySQL database powering Wikipedia.
-\paragraph{Redirect table}
-The redirects dataset is just a SQL dump of the corresponding MySQL table that powers the Wikimedia redirect mechanism.
-It contains all the information about page redirects, in particular the id of the page from which the redirect starts, the name of the target page and its namespace.
+There is a minor discrepancy between the convention used the XML dumps and these SQL dumps regarding the title of a page.
+While in the former it is not normalized in any way, in the latter spaces are replaced with underscores.
+It is important to keep it in mind when analyzing these datasets.
 
-\paragraph{Page table}
-The page table contains various metadata about pages, updated to the date of the dump.
-The features needed for our purposes are the page id, the namespace and the page title.
+The tables used in this project are three: redirects, pages and category links.
+The \emph{redirect} dump has all the information needed for the redirect mechanism offered by the MediaWiki software.
+It contains all the information about page redirects, in particular the id of the page from which the redirect starts, the title of the target page and its namespace.
+It also contains other information, but they are not worth of description for our purposes.
 
-\paragraph{Category links table}
-This table contain the membership pages to their category.
-In particular, every row has the id of the page, its category and the type of link (for example, the link ``page'' denotes that a page belongs to a category, while ``subcat'' is used for categories belonging to other categories).
+The \emph{page} table contains up-to-date information about all the pages.
+The relevant features the page id, the namespace and the page title.
+There are other columns that are used by the MediaWiki software, such as the restrictions or the timestamp of the last edit, but they are not relevant for our analysis.
+
+The \emph{categorylinks} dump contain the membership of pages to categories.
+Every row represent a link between a page and a category.
+Indeed we can find the id of the page, the name of the category and the type of link (for example, the link ``page'' denotes that a page belongs to a category, while ``subcat'' is used for categories belonging to other categories).
+Other fields denotes the timestamp of the link creation and indexing metadata.
 
 \section{Wikimedia pagecounts}
 The Wikimedia page view statistics dataset, aka \emph{pagecounts-raw}, can be downloaded directly from the Wikimedia downloads directory\footnote{\url{https://dumps.wikimedia.org/other/pagecounts-raw/}}.
+It is a fairly huge source of data: the dataset compressed size referring to the 2014 is 866 GB distributed in 8756 files.
 It is generated by the Wikimedia Squid caching servers: every time a reader request a page a log entry is created and the page is served.
 Notice that the cache server does not know if the requested page is an article, a special page, a redirect or even if it exists.
 Furthermore, if a page request contain spaces, these are replaced with underscores, because the MediaWiki software uses this convention.
 
 It consists of many files, each of them containing the aggregated page view for a specific hour.
 Files use a CSV dialect with \emph{spaces} as separators and they are compressed using the gzip format.
-The encoding of this file is not documented. Many of them seem to use UTF-8, while others ISO-8859-2.
+The encoding of this file is not documented.
+Many of them seem to use UTF-8, while others ISO-8859-2. % chktex 8
 We use the first decoder for all the files, and whenever a Unicode endpoint cannot be found, we replace it with the official \textbf{U+FFFD REPLACEMENT CHARACTER}.
 
 Every file is named according the following format:
@@ -103,8 +112,9 @@ The second line exhibit an example of encoding: the actual name of the page was 
 
 \section{Microsoft academic graph}
 \label{sec:mag_dataset}
-Microsoft release a dump of the dataset powering Microsoft Academic Search in form of CSV files.
+Microsoft release a dump of the dataset powering Microsoft Academic Search in form of CSV files, compressed with zip.
 A brief overview of the size of the dataset is shown in Table~\ref{tbl:mag_size}.
+
 \begin{table}[]
 \centering
 \caption{Size of Microsoft academic graph dataset files.}
@@ -116,6 +126,7 @@ Paper references table      &      7.4 GB &    18.1 GB & 41.02 \% \\
 Paper keywords table        &      1.8 GB &     5.3 GB & 34.51 \%
 \end{tabular}
 \end{table}
+
 There are many entities in this dataset, and in our analysis we make use of most of them.
 
 The \emph{Papers} listing contains information like the name of the paper, the publication date, its \ac{DOI} (if available), the journal or the conference where it appeared on.
@@ -136,7 +147,52 @@ Finally, there are other files that contains information about the \emph{Journal
 \label{sec:software}
 \subsection{Sorting pagecounts}
 \label{sub:Sorting pagecounts}
-In order to sort the
+A great amount of time has been spent on the pagecounts dataset.
+Currently it is partitioned by the timestamp of each hour.
+This representation is useful if you need to get the views for a certain hour, but as soon as you want to get the views for an article in the 2014 it is simply not feasible.
+Indeed, you would need to sequentially scan all the 8756 files, decompressing them on the fly.
+Also, you could not perform any search optimization based on bisection, since the content inside the files is not ordered and because the content is not normalized.
+Therefore we decided to reorganize this dataset, normalizing the content and sorting it by project, page and timestamp, without losing information.
+
+The program written for this purposes is a Spark job, using the Python programming language.
+Apache Spark is an open source cluster computing framework originally developed in the AMPLab at University of California, Berkeley but was later donated to the Apache Software Foundation.
+The basic building block of Spark is the \ac{RDD}, a logical collection of data partitioned across machines.
+\ac{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
+Their peculiarity is that transformations can be applied in parallel by multiple \emph{workers}.
+
+The idea is to normalize the content of the input files, then repartition the entities (i.e.\ the tuples containing the statistics for a given page in a project in a specific hour) using the ordering key.
+Finally, every output partition is re-ordered locally and the result is saved into a different CSV file.
+
+Our program will indeed create an \ac{RDD} for every input file.
+This is implicitly decompressed upon read operations.
+Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC 1308~\cite{rfc1808}.
+This transformation may cause multiple lines that refer to the same entity.
+\todo{explain why}
+Therefore it is necessary to merge these lines into one, summing the count of the views and the bytes transferred.
+A \emph{key function} is also defined: it takes a tuple of the form \mintinline{python}{(timestamp, project, page, counts, bytes)} and returns the \mintinline{python}{(project, page)} key.
+
+To repartition the entities, we need to fix the number of output partition.
+This value fixed to the number of input files, let's say $N$.
+
+Now we want to create a \emph{range partitioner}, a function that takes a tuple and returns the index of the new partition it belongs to.
+Notice that Python implicitly defines an ordering between tuples by comparing their fields one at a time.
+To create this function, we take an ordered sample of the keys of the first \ac{RDD} and enumerate it.
+This enumeration is in fact a mapping between a key (project, page) and a partition index.
+When looking for the partition for a new tuple $t$, it is sufficient to return the index corresponding to the last key which is less or equal to $t$.
+Since the enumeration is ordered, the search can be optimized using the bisect algorithm.
+
+At this point the \emph{union} of the input \acp{RDD} is repartitioned using this function, resulting in a coarse-sorted dataset.
+The last operation needed is to sort tuples of each partition locally.
+Values of these partition (i.e.\ tuples containing the timestamp, count and bytes) are also sorted by timestamp.
+This results in a new \ac{RDD} normalized and sorted by \mintinline{python}{(page, project, timestamp)}.
+The last step is to save the result in a CSV file.
+The dataset is actually split in multiple gzipped CSV files because we want to avoid to merge partitions.
+
+Since this job is highly parallelizable, we exploit the UniTN Cisca cluster described \todo{describe it}.
+Spark includes a cluster management which makes this operation more or less painless.
+It is sufficient to start the Spark executable on the workstations and wait for them to connect to the master server.
+Once they are ready, it is sufficient to launch the job on the master, and it automatically splits the tasks between the workers.
+
 
 \todo{Spark, python libs, sqlite}
 
