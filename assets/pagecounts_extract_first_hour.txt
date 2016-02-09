@@ -1,0 +1,5 @@
+en Chomsky 1 98938
+en Chomsky%E2%80%93Sch%C3%BCtzenberger_theorem 1 12524
+en Chomsky_hierarchy 13 233022
+en Chomsky_normal_form 1 13042
+en Chomsky_normal_formm 1 13042
