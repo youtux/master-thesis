@@ -233,10 +233,10 @@ The main analysis made on Wikipedia XML Dumps consist of extracting as many scho
 To accomplish this, we decided to scan the text of all the revisions of every page and look for what seems to be a valid identifier.
 Our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
 It uses a set of regular expressions that tries to match the identifiers' specifications.
-This set has been originally created by Aaron Halfaker\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
+This set has been originally created by Aaron Halfaker and is part of the python-mwcites library\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
 
 When analyzing the XML dump, it is necessary to pay attention to what is being analyzed.
 First of all, we do not want to analyze pages which are not articles, i.e.\ pages which namespace is not the \emph{mainspace}.
-Secondly, the text of a revision should be striped from comments, which may contain information which is not visible by the viewers.
+Secondly, the text of a revision should be stripped of comments, which may contain information which is not visible by the viewers.
 
 \todo{Spark, python libs, sqlite}
