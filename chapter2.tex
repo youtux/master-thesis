@@ -2,6 +2,39 @@
 
 \chapter{System architecture}
 \label{cha:system_architecture}
+This section analyzes in detail the structure of the datasets, their problems and their peculiarities.
+Also, we give a description of the machines used to execute our software, together with a description of what the various components do.
+
+\section{Infrastructure}
+\label{sec:infrastructure}
+The various software components have been written and tested on a MacBook Pro with Retina Display.
+Its specification can be found in Table~\ref{tbl:tech_specs}.
+Its storage is limited to 500 GB and because of the size of our datasets it was not possible to run the programs on all the datasets.
+
+For this reason University of Trento allowed me to use one of their machines called ``adige''.
+Its hardware is not very different from the MacBook.
+Since we are going to need at least 866 GB just to analyze the Wikimedia page view statistics, the network office also allocated a 4 TB network disk to store and access most of our datasets.
+This machine is always on, so we can launch the programs and retrieve the results as soon as they finish, without worrying of system reboots.
+
+Even though the disk space is not a problem, the processing power is still an issue when we want to sort the page view statistics, as described in Sect.~\ref{sub:Sorting pagecounts}.
+To mitigate this problem, we exploit the UniTN Cisca cluster.
+It consist of circa 125 workstations, each of them having \todo{N} cores available.
+The technical specifications of the single workstation is not something brilliant (see Table~\ref{tbl:cisca_workstation_specs}), but the fact that we can use more than \todo{N*M} cores in total makes the difference.
+
+\begin{table}[]
+\centering
+\caption{Technical specification of the machines used.}
+\label{tbl:tech_specs}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{}} & \textbf{MacBook Pro}           & \textbf{adige}                  & \textbf{Cisca workstation} \\ \midrule
+Processor                     & 2.3GHz quad-core Intel i7 & 3.60GHz quad-core Intel i7 &                            \\
+Memory                        & 16 GB                          & 32 GB                           &                            \\
+Storage                       & 500 GB (SSD)                   & 793 GB (HD)                     &                            \\
+Network card                  & 1 GBps                         & 1 GBps                          &                            \\ \bottomrule
+\end{tabular}
+\end{table}
+\todo{Add specs for workstation}
 
 \section{Datasets}
 \label{sec:datasets}
@@ -79,7 +112,7 @@ It consists of many files, each of them containing the aggregated page view for 
 Files use a CSV dialect with \emph{spaces} as separators and they are compressed using the gzip format.
 The encoding of this file is not documented.
 Many of them seem to use UTF-8, while others ISO-8859-2. % chktex 8
-We use the first decoder for all the files, and whenever a Unicode endpoint cannot be found, we replace it with the official \textbf{U+FFFD REPLACEMENT CHARACTER}.
+We use the first decoder for all the files, and whenever a Unicode endpoint cannot be found, we replace it with the official \textbf{U+FFFD} replacement character.
 
 Every file is named according the following format:
 \begin{verbatim}
@@ -155,6 +188,7 @@ Also, you could not perform any search optimization based on bisection, since th
 Therefore we decided to reorganize this dataset, normalizing the content and sorting it by project, page and timestamp, without losing information.
 
 The program written for this purposes is a Spark job, using the Python programming language.
+\todo{Should I move the Spark description to chapter 1?}
 Apache Spark is an open source cluster computing framework originally developed in the AMPLab at University of California, Berkeley but was later donated to the Apache Software Foundation.
 The basic building block of Spark is the \ac{RDD}, a logical collection of data partitioned across machines.
 \ac{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
@@ -165,7 +199,7 @@ Finally, every output partition is re-ordered locally and the result is saved in
 
 Our program will indeed create an \ac{RDD} for every input file.
 This is implicitly decompressed upon read operations.
-Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC 1308~\cite{rfc1808}.
+Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC~1308~\cite{rfc1808}.
 This transformation may cause multiple lines that refer to the same entity.
 \todo{explain why}
 Therefore it is necessary to merge these lines into one, summing the count of the views and the bytes transferred.
@@ -193,10 +227,16 @@ Spark includes a cluster management which makes this operation more or less pain
 It is sufficient to start the Spark executable on the workstations and wait for them to connect to the master server.
 Once they are ready, it is sufficient to launch the job on the master, and it automatically splits the tasks between the workers.
 
+\section{Analyzing Wikipedia dumps}
+\label{sec:Analyzing Wikipedia dumps}
+The main analysis made on Wikipedia XML Dumps consist of extracting as many scholarly citations as possible.
+To accomplish this, we decided to scan the text of all the revisions of every page and look for what seems to be a valid identifier.
+Our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
+It uses a set of regular expressions that tries to match the identifiers' specifications.
+This set has been originally created by Aaron Halfaker\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
+
+When analyzing the XML dump, it is necessary to pay attention to what is being analyzed.
+First of all, we do not want to analyze pages which are not articles, i.e.\ pages which namespace is not the \emph{mainspace}.
+Secondly, the text of a revision should be striped from comments, which may contain information which is not visible by the viewers.
 
 \todo{Spark, python libs, sqlite}
-
-
-\section{Infrastructure}
-\label{sec:infrastructure}
-\todo{My pc, ``adige'', unitn cluster}
