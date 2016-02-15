@@ -191,19 +191,19 @@ The program written for this purposes is a Spark job, using the Python programmi
 \todo{Should I move the Spark description to chapter 1?}
 Apache Spark is an open source cluster computing framework originally developed in the AMPLab at University of California, Berkeley but was later donated to the Apache Software Foundation.
 The basic building block of Spark is the \ac{RDD}, a logical collection of data partitioned across machines.
-\ac{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
-Their peculiarity is that transformations can be applied in parallel by multiple \emph{workers}.
+An \acs{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
+The value of Spark comes from the fact that transformations can be applied in parallel by multiple \emph{workers}.
 
 The idea is to normalize the content of the input files, then repartition the entities (i.e.\ the tuples containing the statistics for a given page in a project in a specific hour) using the ordering key.
 Finally, every output partition is re-ordered locally and the result is saved into a different CSV file.
 
 Our program will indeed create an \ac{RDD} for every input file.
 This is implicitly decompressed upon read operations.
-Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC~1308~\cite{rfc1808}.
+Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC 1808~\cite{rfc1808}.
 This transformation may cause multiple lines that refer to the same entity.
 \todo{explain why}
 Therefore it is necessary to merge these lines into one, summing the count of the views and the bytes transferred.
-A \emph{key function} is also defined: it takes a tuple of the form \mintinline{python}{(timestamp, project, page, counts, bytes)} and returns the \mintinline{python}{(project, page)} key.
+A \emph{key function} is also defined: it takes a tuple of the form $(timestamp, project, page, counts, bytes)$ and returns the $(project, page)$ key.
 
 To repartition the entities, we need to fix the number of output partition.
 This value fixed to the number of input files, let's say $N$.
@@ -218,7 +218,7 @@ Since the enumeration is ordered, the search can be optimized using the bisect a
 At this point the \emph{union} of the input \acp{RDD} is repartitioned using this function, resulting in a coarse-sorted dataset.
 The last operation needed is to sort tuples of each partition locally.
 Values of these partition (i.e.\ tuples containing the timestamp, count and bytes) are also sorted by timestamp.
-This results in a new \ac{RDD} normalized and sorted by \mintinline{python}{(page, project, timestamp)}.
+This results in a new \ac{RDD} normalized and sorted by $(page, project, timestamp)$.
 The last step is to save the result in a CSV file.
 The dataset is actually split in multiple gzipped CSV files because we want to avoid to merge partitions.
 
@@ -229,14 +229,21 @@ Once they are ready, it is sufficient to launch the job on the master, and it au
 
 \section{Analyzing Wikipedia dumps}
 \label{sec:Analyzing Wikipedia dumps}
-The main analysis made on Wikipedia XML Dumps consist of extracting as many scholarly citations as possible.
-To accomplish this, we decided to scan the text of all the revisions of every page and look for what seems to be a valid identifier.
+The main analysis made on Wikipedia XML Dumps consist of extracting the history of the appearances of scholarly citations in Wikipedia articles.
+To accomplish this, it is necessary to scan the text of all the revisions of every page and look for what seems to be a valid identifier.
 Our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
-It uses a set of regular expressions that tries to match the identifiers' specifications.
-This set has been originally created by Aaron Halfaker and is part of the python-mwcites library\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
+The program created uses a set of regular expressions that tries to match the identifiers' specifications.
+This set has been originally developed by Aaron Halfaker and is part of the python-mwcites library\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
 
 When analyzing the XML dump, it is necessary to pay attention to what is being analyzed.
 First of all, we do not want to analyze pages which are not articles, i.e.\ pages which namespace is not the \emph{mainspace}.
 Secondly, the text of a revision should be stripped of comments, which may contain information which is not visible by the viewers.
 
-\todo{Spark, python libs, sqlite}
+Since we want to build the history of the appearances, we have to decide an ordering mechanism.
+Since revisions have an id and a parent id, at first we tried to use the topological ordering of the directed graph induced by the ``parent of'' relation, from now on the ``history graph''.
+On some pages this worked fine, but soon we discovered that it may contain cycles.
+\todo{An example is shown in Fig.~\ref{fig:todo}.}
+\todo{Explain why there are cycles}
+So we decided to order the revisions by their timestamp.
+
+The output is a CSV file, each line describing the appearance of an identifier inside a page.
