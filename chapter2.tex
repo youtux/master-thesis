@@ -247,3 +247,12 @@ On some pages this worked fine, but soon we discovered that it may contain cycle
 So we decided to order the revisions by their timestamp.
 
 The output is a CSV file, each line describing the appearance of an identifier inside a page.
+It has the following form:
+\begin{minted}[breaklines,breakafter=\,]{text}
+en,12,Anarchism,doi,10.1080/07393140701510160,2013-05-26T09:12:47Z,2014-06-24T11:52:37Z
+en,12,Anarchism,doi,10.1080/07393140701510160,2014-06-24T11:56:44Z,
+[...]
+\end{minted}
+Every line contains the project name, the id of the page, the type of identifier, the actual identifier, the timestamp of the moment it appears and the timestamp when it ends.
+
+In a successive run, to every line will be added a column representing how many views the identifier had in that period of time, exploiting the pagecounts dataset created.
