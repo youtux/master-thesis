@@ -16,22 +16,56 @@ The datasets created allow to perform some measurement regarding the use of scho
 This section analyzes the use of papers in wikipedia.
 
 \subsection{Incoming citations distribution}
-Ciao
+The distribution of scholarly citations has been studied many times by the scientific community.
+The problem is to discovery what is the distribution of citations, that is the number of papers cited a total number of $x$ times, $N(x)$.
+Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$.
+
+Fig.~\ref{fig:incoming_citations_loglog} compares the distribution of citations of all the papers in history and the ones found only in Wikipedia.
+The number of incoming citation for a paper is determined using the \ac{MAG} dataset.
+Notice that because of the data available in the \ac{MAG}, only the papers found in Wikipedia which have a \ac{DOI} are considered.
+This account for the 28\% of the identifiers found.
+Furthermore, from this set of papers we removed the ones that appears to be ``non-valid'' in the \ac{MAG} dataset, namely the ones that have more than one \ac{DOI}.
+The amount of papers considered at the end is 17\% of the identifiers found in wikipedia.
+
+From the graph we can only see that both the distribution follow some kind of power law.
+It is more interesting to analyze the \ac{CCDF} of the two series (Figures~\ref{fig:incoming_citations_ccdf_1000}~and~\ref{fig:incoming_citations_ccdf_100}).
+In our case, the \ac{CCDF}, or \emph{tail distribution}, expresses the percentage of papers $\bar{F}(x)$ that have more than $x$ citations.
+From the two figures we can see that papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
+For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers have at least 10 incoming citations.
+\todo{maybe limit to DOI only for the all papers distribution?}
+
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits}
+    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_loglog}
     \caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log-log scale.}
     \label{fig:incoming_citations_loglog}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_log}
+    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_1000}
     \caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log scale on the Y axis.}
-    \label{fig:incoming_citations_log}
+    \label{fig:incoming_citations_ccdf_1000}
 \end{figure}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_100}
+    \caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log scale on the Y axis.}
+    \label{fig:incoming_citations_ccdf_100}
+\end{figure}
+
+
+
 \subsection{Publication date distribution}
+see https://en.wikipedia.org/wiki/User:ProteinBoxBot.
+
+todo: show graph of identifier insertions in time
+
+analizza la persistenza degli identifier inseriti e rimossi
+
+fare la average della persistenza degli identifier escludendo la coda
 
 \subsection{Age at first appearance}
 
