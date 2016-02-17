@@ -28,32 +28,33 @@ Furthermore, from this set of papers we removed the ones that appears to be ``no
 The amount of papers considered at the end is 17\% of the identifiers found in wikipedia.
 
 From the graph we can only see that both the distribution follow some kind of power law.
-It is more interesting to analyze the \ac{CCDF} of the two series (Figures~\ref{fig:incoming_citations_ccdf_1000}~and~\ref{fig:incoming_citations_ccdf_100}).
+It is more interesting to analyze the \ac{CCDF} of the two series.
 In our case, the \ac{CCDF}, or \emph{tail distribution}, expresses the percentage of papers $\bar{F}(x)$ that have more than $x$ citations.
-From the two figures we can see that papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
+
+From Fig.~\ref{fig:incoming_citations_ccdf_1000}~and~\ref{fig:incoming_citations_ccdf_100} we can see that papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
 For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers have at least 10 incoming citations.
 \todo{maybe limit to DOI only for the all papers distribution?}
 
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_loglog}
-    \caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log-log scale.}
-    \label{fig:incoming_citations_loglog}
+\begin{figure}
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_loglog}
+\caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log-log scale.}
+\label{fig:incoming_citations_loglog}
 \end{figure}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_1000}
-    \caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log scale on the Y axis.}
-    \label{fig:incoming_citations_ccdf_1000}
+\begin{figure}
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_1000}
+\caption{Complementary cumulative distribution function of the first 100 incoming citations of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia.}
+\label{fig:incoming_citations_ccdf_1000}
 \end{figure}
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_100}
-    \caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log scale on the Y axis.}
-    \label{fig:incoming_citations_ccdf_100}
+\begin{figure}
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_100}
+\caption{Complementary cumulative distribution function of the first 100 incoming citations of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia.}
+\label{fig:incoming_citations_ccdf_100}
 \end{figure}
 
 
