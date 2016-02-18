@@ -17,15 +17,15 @@ This section analyzes the use of papers in wikipedia.
 
 \subsection{Incoming citations distribution}
 The distribution of scholarly citations has been studied many times by the scientific community.
-The problem is to discovery what is the distribution of citations, that is the number of papers cited a total number of $x$ times, $N(x)$.
-Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$.
+The problem is to understand the law that describes the \emph{distribution of citations} of papers, namely the distribution of the number of papers $N(x)$ that have been cited $x$ times.
+Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$ \todo{explain some more of that article}.
 
-Fig.~\ref{fig:incoming_citations_loglog} compares the distribution of citations of all the papers in history and the ones found only in Wikipedia.
+Fig.~\ref{fig:incoming_citations_loglog} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389 thousands).
 The number of incoming citation for a paper is determined using the \ac{MAG} dataset.
-Notice that because of the data available in the \ac{MAG}, only the papers found in Wikipedia which have a \ac{DOI} are considered.
-This account for the 28\% of the identifiers found.
+Notice that the only identifier available in the \ac{MAG} is the \ac{DOI}, hence only the papers found in Wikipedia which have a \ac{DOI} are considered.
+This accounts for the 28\% of the identifiers found.
 Furthermore, from this set of papers we removed the ones that appears to be ``non-valid'' in the \ac{MAG} dataset, namely the ones that have more than one \ac{DOI}.
-The amount of papers considered at the end is 17\% of the identifiers found in wikipedia.
+The amount of papers considered at the end is the 17\% of the identifiers found in Wikipedia.
 
 From the graph we can only see that both the distribution follow some kind of power law.
 It is more interesting to analyze the \ac{CCDF} of the two series.
@@ -33,6 +33,7 @@ In our case, the \ac{CCDF}, or \emph{tail distribution}, expresses the percentag
 
 From Fig.~\ref{fig:incoming_citations_ccdf_1000}~and~\ref{fig:incoming_citations_ccdf_100} we can see that papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
 For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers have at least 10 incoming citations.
+A plausible explanation is that users tend to insert papers with a higher rank in term of incoming citations, rather than ones with less impact on the scientific community.
 \todo{Regarding the ``All papers'' serie, should we limit only papers having DOIs?}
 % see https://en.wikipedia.org/wiki/User:ProteinBoxBot.
 
@@ -59,16 +60,16 @@ For instance, the 74\% of papers in Wikipedia have at least 10 incoming citation
 \end{figure}
 
 \subsection{Age of identifiers at first appearance}
-During the analysis of the data we have obtained from Wikipedia, an interesting information came up: the age of the papers when they first appear in Wikipedia.
+Another interesting information to analyze is the age of the papers when they first appear in Wikipedia.
 Fig.~\ref{fig:age_of_papers_at_first_appearance} shows the distribution of the age of papers when they are inserted on Wikipedia for the first time.
 In theory there should not be negative values, because this would mean that an identifier appears in Wikipedia before the paper is published.
 In practice this happens because the \ac{MAG} dataset is not 100\% accurate, and some publication dates may contain errors.
-We have investigate this problem, and it seems to be caused by indexing engine used by Microsoft.
-It seems that if a paper is published online on a certain date, and it is also released after in a journal, Microsoft consider the date of the journal the publication date.
-However, only the 3,12\% of the \acp{DOI} extracted have a negative age.
+We have investigated this problem, and it seems to be caused by how Microsoft extracts the publication date of a paper.
+It appears that if a paper is published online on a certain date, and it is also released after in a journal, Microsoft consider the date of the journal the publication date.
+However, only the 3,12\% of the \acp{DOI} extracted have a negative age, so the effect of the error is arguably quite marginal.
 
 It is interesting to see that many \acp{DOI} are inserted in Wikipedia few days after their publication (Fig.~\ref{fig:age_of_papers_at_first_appearance_zoom}).
-A possible explanation is that some authors insert the identifier of their paper as soon as it has been published.
+We have analyzed some of these cases, and it appears that that some authors insert the identifier of their paper as soon as it has been published.
 
 Finally, to give a scale to this numbers, Fig.~\ref{fig:age_of_papers_at_first_appearance_cdf} measure is the \ac{CDF} of the serie, namely what is the percentage $F(x)$ of paper identifiers inserted in Wikipedia at most $x$ days after their publication.
 \todo{conclude, somehow}

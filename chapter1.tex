@@ -10,22 +10,22 @@ In scientific publishing environment that is increasingly moving online, identif
 Indeed articles may be hosted in different places on the web and often there is more than one version of an article available.
 Identifiers are crucial to disambiguate articles that may share similar titles, or that  share the same set of authors because of homonymy.
 There are many different types of identifier nowadays, some used more than others.
-This research will consider only four of them: \acs{DOI}, \acs{ISBN}, \emph{arXiv} identifier and \acs{PMID}.
-The choice is based on technical requirements and the usage in the scientific community.
+This research considers only four of them: \acs{DOI}, \acs{ISBN}, \emph{arXiv} identifier and \acs{PMID}.
+The choice is based on their popularity in Wikipedia and on technical reasons.
 
 The \acf{DOI} system was created by the International DOI Foundation and was adopted as International Standard (ISO 26324) in 2012.
 It originated in a joint initiative of three trade associations in the publishing industry: the \acf{IPA}, the \acf{STM} and the \acf{AAP}.
-Millions of \ac{DOI} names have been assigned to date, through a growing federation of Registration Agencies world-wide.
+Millions of \ac{DOI} names have been assigned to date, through a growing federation of Registration Agencies worldwide.
 For example, the Crossref application is used by more than 4\,800 publishers and societies to enable cross-citation of scholarly publications; the DataCite international federation of data centres uses the \ac{DOI} system; and the Entertainment Identifier Registry applies \ac{DOI} names to film and broadcast assets.
 
-The \acf{ISBN} identifier was developed by the \acf{ISO} and was published in 1970 as the ISO 2108.
+The \acf{ISBN} was developed by the \acf{ISO} and was published in 1970 as the ISO 2108.
 It originated from the \ac{SBN} code, a numeric commercial book identifier created by Gordon Foster, Emeritus Professor of Statistics at Trinity College, Dublin.
-A unique \ac{ISBN} is assigned assigned to every edition and variant of a book.
+A unique \ac{ISBN} is assigned to every edition and variant of a book.
 
 Wikipedia guidelines~\cite{wiki:doi_guideline} encourage the use of \acp{DOI} when available for journal sources, as well as the \ac{ISBN} references for book sources.
 
 The \emph{arXiv} is a repository of electronic preprints of scientific papers in the fields of mathematics, physics, astronomy, computer science, quantitative biology, statistics, and quantitative finance, which can be accessed online.
-In many fields of mathematics and physics, almost all scientific papers are self-archived on the arXiv.
+In many fields of mathematics and physics, almost all scientific papers are self-archived on the arXiv \todo{citation needed}.
 
 Many references that appear in Wikipedia include the arXiv identifier, so it is included in our research.
 
@@ -47,35 +47,41 @@ A peer review of 42 science articles found in both Encyclopædia Britannica and 
 
 \todo{CITEME\@: Bill Tancer (May 1, 2007). ``Look Who's Using Wikipedia''. Time. Retrieved December 1, 2007. The sheer volume of content [\ldots] is partly responsible for the site's dominance as an online reference. When compared to the top 3,200 educational reference sites in the US, Wikipedia is No. 1, capturing 24.3\% of all visits to the category. Cf. Bill Tancer (Global Manager, Hitwise), ``Wikipedia, Search and School Homework'', Hitwise, March 1, 2007.}
 
-In this section we describe the various entities that compose Wikipedia which are relevant to our analysis.
+In this section we describe the some of the entities that compose Wikipedia which are relevant to our analysis.
 
 \paragraph{Pages}
 The basic block of Wikipedia is the \emph{page}.
 Pages are plain text document that can be customized using the wiki markup language, which is rendered when a user requests it.
 
-A Wikipedia \emph{article}, or entry, is a page that has encyclopedic information on it.
-A well-written encyclopedia article identifies a notable encyclopedic topic, summarizes that topic comprehensively, contains references to reliable sources, and links to other related topics.
+A Wikipedia \emph{article}, or entry, is a page that contains encyclopedic information.
+A well-written encyclopedia article identifies a notable encyclopedic topic, summarizes that topic comprehensively, contains references to reliable sources and links to other related topics.
 
-\paragraph{Namespaces}
-A Wikipedia \emph{namespace} is a set of Wikipedia pages whose names begin with a particular reserved word recognized by the MediaWiki software (followed by a colon).
-For example, in the user namespace all titles begin with ``User:''.
-In the case of the article (or main) namespace, in which encyclopedia articles appear, the reserved word and colon are absent.
-
-At the time of writing, Wikipedia has 35 current namespaces: 16 subject namespaces, 16 corresponding talk namespaces, 2 virtual namespaces, and 1 special namespace.
-
-Pages under the virtual namespaces (``Special'' and ``Media'') are not actually stored in the wikipedia database.
-Special pages are created on demand by the MediaWiki software: for instance, ``Special:Log'' lists the log of all the activities on Wikipedia.
-Files like images, videos and other assets live under the ``Media'' namespace.
-
-\paragraph{Contributors}
+\paragraph{Revisions}
 Every time a \emph{contributor} edits a page, a new \emph{revision} is created.
 It contains the text of the new version, as well as information about the contributor, the timestamp, the comment and others.
 
-Contributor can either be humans or bots.
+\paragraph{Namespaces}
+Wikipedia pages are categorized under different \emph{namespaces}, according to their function.
+To dictate the membership of a namespace, page titles are prefixed with the namespace followed by a colon.
+For instance, user pages belongs to the ``User'' namespace, and their title is prefixed with the string \textbf{User:}.
+In the case of the article (or main) namespace, in which encyclopedia articles appear, the prefix is omitted.
+
+At the time of writing, Wikipedia has 35 namespaces: 16 subject namespaces, 16 corresponding talk namespaces, 2 virtual namespaces, and 1 special namespace.
+\todo{explain some of these namespaces}
+
+Pages under the virtual namespaces (``Special'' and ``Media'') are not actually stored in the wikipedia database.
+Special pages are created on demand by the MediaWiki software: for instance, the page \textbf{Special:Log} lists the log of all the activities on Wikipedia.
+Files like images, videos and other assets live under the ``Media'' namespace.
+
+\paragraph{Contributors}
+Wikipedia \emph{contributors} can either be humans or bots.
 Bots are usually employed to to repetitive and mundane tasks, such as correcting obvious typos, updating listified pages of categories or revert vandalisms.
 
-\subsection{Redirects}
-A redirect is a page that has no content itself but sends the reader to another page, usually an article or section of an article.
+
+
+
+\paragraph{Redirects}
+A redirect is a page that has no content itself but sends the reader to another page, usually an article or a section of an article.
 Redirects can be created for many reasons, among which:
 \begin{description*}
     \item[Alternative names] An entity may be known as different names.
@@ -91,15 +97,15 @@ Redirects can be created for many reasons, among which:
     This is not an issue anymore, but old page names are kept and they redirect to the non-camelcase name.
 \end{description*}
 
-To mark a page as a redirect, it is necessary to include the string \textbf{\#redirect: [[Target]]}, where \textbf{Target} is the page to which the reader will be redirected.
+To mark a page as a redirect, it is necessary to include the string \textbf{\#redirect: [[Target]]} inside its source, where \textbf{Target} is the page to which the reader will be redirected.
 
-A recent study~\cite{Hill2014} shows that redirect pages play an important role in Wikipedia, and must keep in consideration when analyzing it.
+A recent study~\cite{Hill2014} shows that redirect pages play an important role in Wikipedia, and must keep in consideration when analyzing it \todo{talk about this paper}.
 We have replicated the results of the paper (see Table~\ref{tbl:redirects}) using the latest data available and results are consistent with the one given by the paper: the 59,25\% of Wikipedia articles are redirects.
-This is particularly important in our analysis when we analyze the views of pages, because we must follow the redirects to get the correct count.
+This is particularly important in our analysis when we analyze how many users visited a page, because we must follow the redirects to get the correct count.
 \todo{Maybe this needs an more detailed view in the results chapter?}
 
-\subsection{Vandalism}
-As a wiki, every one of its articles can be edited by anyone – there is no credential check ing.
+\paragraph{Vandalism}
+As a wiki, articles can be edited by anyone --- there is no credential checking.
 Changes are visible to everyone immediately, without any review cycle.
 This comes at a cost: \emph{vandalism}.
 Vandalism may come in different forms: pages may be subject to malevolent edits, deletions or moves.
@@ -133,17 +139,18 @@ These statistics are now maintained by the Analytics Team\footnote{\url{https://
 The dataset contains the number of non-unique visitors for each page for all the Wikimedia projects, aggregated by hour.
 
 Unfortunately this dataset needs a lot of cleaning and, in order to be used effectively, needs to be reordered, as described in Sect.~\ref{sub:Sorting pagecounts}.
+\todo{State the size of this dataset}
 
 \section{Microsoft Academic Service}
 \label{sec:mag}
 Microsoft Academic Search is an experimental research service developed by Microsoft Research to explore how scholars, scientists, students, and practitioners find academic content, researchers, institutions, and activities.
-According to the authors, the service has already indexed 83 million papers achieving an above-95\% accuracy~\cite{Sinha2015}.
+The service indexed 83 million papers at the time of the writing of its technical report~\cite{Sinha2015} and, according to the authors, it achieved an above-95\% accuracy.
 The service can also display the key relationships between and among subjects, content, and authors, highlighting the critical links that help define scientific research.
 
 For these reasons, we use this service in our analysis.
-The dataset is available under the name of ``Microsoft Academic Graph''\footnote{\url{http://research.microsoft.com/en-us/projects/mag/}}.
-It contains 12\,0887\,833 papers at the time of writing and some of them date back to 1800.
-It also contains the references between them, which is of great value.
+The dataset is available under the name of \ac{MAG}\footnote{\url{http://research.microsoft.com/en-us/projects/mag/}}.
+It contains 120\,887\,833 papers at the time of writing and some of them date back to 1800.
+It also contains the references (in term of citations) between them, which is something of great value.
 
 Unfortunately this source is not 100\% accurate, and in Sect.~\ref{sec:mag_dataset} are described some of its problems.
 
