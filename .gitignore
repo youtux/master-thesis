@@ -3,6 +3,7 @@
 #####=== TeX ===#####
 .draft
 thesis.pdf
+_minted-thesis/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
