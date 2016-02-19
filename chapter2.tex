@@ -138,7 +138,7 @@ In Listing~\ref{lst:pagecounts_extract} is shown an sample from the dump of the 
 The first line is straight forward: the page \textbf{Chomsky} has been seen once, and the size of the response was 98\,938 bytes.
 The second line exhibit an example of escaping: the actual name of the page was \textbf{Chomsky–Schützenberger\_theorem} and all the non-ascii character plus the dash have been replaced with their hexadecimal representation.
 
-\begin{listing}[]
+\begin{listing}[h]
     \inputminted[breaklines=true]{xml}{assets/pagecounts_extract_first_hour.txt}
     \caption{Extract from the first hour of the 2014 pagecounts-raw dataset (\textbf{pagecounts-20140101-000000.gz})}
     \label{lst:pagecounts_extract}
@@ -163,13 +163,13 @@ Paper keywords table        &      1.8 GB &     5.3 GB & 34.51 \%
 
 There are many entities in this dataset, and in our analysis we make use of some of them.
 
-The \emph{Papers} listing contains information like the name of the paper, the publication date, its \ac{DOI} (if available), the journal or the conference where it appeared on.
+The \emph{Papers} listing contains information about the extracted papers like their title, the publication date, their \ac{DOI} (if available), the journal or the conference where they appeared on.
 There is a total of 120\,887\,833 papers, but only 35\,039\,319 of them contains a \ac{DOI} record (28.99\%) and, most important, only 33\,345\,644 of them have exactly one \ac{DOI} (27.58\%).
 The fact that two papers share the same \ac{DOI} should be sought in the method used by Microsoft to extract them.
 It is important that a good percentage of papers have this identifier because our analysis relies on the fact that we can match publication identifiers that appear in Wikipedia, and this is done by matching the \ac{DOI} of a paper.
 
-There is another important table in this dataset, the \emph{PaperReferences} dump, which contains the references between papers.
-It contains just two columns: the referring and the referred paper identifiers.
+There is another important table in this dataset, \emph{PaperReferences}, which contains the references between papers.
+It consists of just two columns: the referring and the referred paper identifiers.
 
 Finally, there are other files that contains information about the \emph{Journals}, \emph{Conferences}, \emph{Authors}, \emph{Keywords}, etc.
 
@@ -181,12 +181,12 @@ Finally, there are other files that contains information about the \emph{Journal
 \label{sec:software}
 \subsection{Sorting pagecounts}
 \label{sub:Sorting pagecounts}
-A great amount of time has been spent on the pagecounts dataset.
+A great amount of time has been spent on the \emph{pagecounts-raw} dataset.
 Currently it is partitioned by the timestamp of each hour.
-This representation is useful if you need to get the views for a certain hour, but as soon as you want to get the views for an article in the 2014 it is simply not feasible.
-Indeed, you would need to sequentially scan all the 8756 files, decompressing them on the fly.
-Also, you could not perform any search optimization based on bisection, since the content inside the files is not ordered and because the content is not normalized.
-Therefore we decided to reorganize this dataset, normalizing the content and sorting it by project, page and timestamp, without losing information.
+This representation is useful if you need to get the views for a certain hour, but as soon as you want to get the all the hourly views for an article it is simply not feasible.
+Indeed, you would need to sequentially scan all the 8756 files (just for the year 2014), decompressing them on the fly.
+Also, you could not perform any search optimization based on bisection, since the content inside the files is not ordered nor normalized.
+Therefore we decided to reorganize this dataset, normalizing the content and sorting it by the (project, page, timestamp) \emph{key}, without losing information.
 
 The program written for this purposes is a Spark job, using the Python programming language.
 \todo{Should I move the Spark description to chapter 1?}
@@ -198,8 +198,7 @@ The value of Spark comes from the fact that transformations can be applied in pa
 The idea is to normalize the content of the input files, then repartition the entities (i.e.\ the tuples containing the statistics for a given page in a project in a specific hour) using the ordering key.
 Finally, every output partition is re-ordered locally and the result is saved into a different CSV file.
 
-Our program will indeed create an \ac{RDD} for every input file.
-This is implicitly decompressed upon read operations.
+Our program will indeed create an \ac{RDD} for every input file, which are implicitly decompressed upon read operations.
 Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC 1808~\cite{rfc1808}.
 This transformation may cause multiple lines that refer to the same entity.
 \todo{explain why}
@@ -207,7 +206,7 @@ Therefore it is necessary to merge these lines into one, summing the count of th
 A \emph{key function} is also defined: it takes a tuple of the form $(timestamp, project, page, counts, bytes)$ and returns the $(project, page)$ key.
 
 To repartition the entities, we need to fix the number of output partition.
-This value fixed to the number of input files, let's say $N$.
+We fixed this value to the number $N$ of input files.
 
 Now we want to create a \emph{range partitioner}, a function that takes a tuple and returns the index of the new partition it belongs to.
 Notice that Python implicitly defines an ordering between tuples by comparing their fields one at a time.
@@ -216,15 +215,15 @@ This enumeration is in fact a mapping between a key (project, page) and a partit
 When looking for the partition for a new tuple $t$, it is sufficient to return the index corresponding to the last key which is less or equal to $t$.
 Since the enumeration is ordered, the search can be optimized using the bisect algorithm.
 
-At this point the \emph{union} of the input \acp{RDD} is repartitioned using this function, resulting in a coarse-sorted dataset.
-The last operation needed is to sort tuples of each partition locally.
+At this point the \emph{union} of the input \acp{RDD} is repartitioned using this function, resulting in a ``coarse-sorted'' dataset: every tuple belongs to the right partition according to the ordering, but partitions are not yet locally sorted.
+Indeed, the last operation needed is to sort tuples of each partition locally.
 Values of these partition (i.e.\ tuples containing the timestamp, count and bytes) are also sorted by timestamp.
 This results in a new \ac{RDD} normalized and sorted by $(page, project, timestamp)$.
 The last step is to save the result in a CSV file.
-The dataset is actually split in multiple gzipped CSV files because we want to avoid to merge partitions.
+The dataset is actually split in multiple gzipped CSV files, one for each partition, so that no more reshuffles are needed.
 
-Since this job is highly parallelizable, we exploit the UniTN Cisca cluster described \todo{describe it}.
-Spark includes a cluster management which makes this operation more or less painless.
+Since this job is highly parallelizable, we exploit the UniTN Cisca cluster described in Sect.~\ref{sec:infrastructure}.
+Spark ships with a cluster manager which makes this operation more or less painless.
 It is sufficient to start the Spark executable on the workstations and wait for them to connect to the master server.
 Once they are ready, it is sufficient to launch the job on the master, and it automatically splits the tasks between the workers.
 
@@ -232,7 +231,7 @@ Once they are ready, it is sufficient to launch the job on the master, and it au
 \label{sec:Analyzing Wikipedia dumps}
 The main analysis made on Wikipedia XML Dumps consist of extracting the history of the appearances of scholarly citations in Wikipedia articles.
 To accomplish this, it is necessary to scan the text of all the revisions of every page and look for what seems to be a valid identifier.
-Our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
+As explained in Sect.~\ref{sec:Publication identifiers}, our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
 The program created uses a set of regular expressions that tries to match the identifiers' specifications.
 This set has been originally developed by Aaron Halfaker and is part of the python-mwcites library\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
 
@@ -241,7 +240,7 @@ First of all, we do not want to analyze pages which are not articles, i.e.\ page
 Secondly, the text of a revision should be stripped of comments, which may contain information which is not visible by the viewers.
 
 Since we want to build the history of the appearances, we have to decide an ordering mechanism.
-Since revisions have an id and a parent id, at first we tried to use the topological ordering of the directed graph induced by the ``parent of'' relation, from now on the ``history graph''.
+Since revisions have an id and a parent id, at first we tried to use the topological ordering of the directed graph induced by the ``parent of'' relation, from now on the \emph{history graph}.
 On some pages this worked fine, but soon we discovered that it may contain cycles.
 \todo{An example is shown in Fig.~\ref{fig:todo}.}
 \todo{Explain why there are cycles}
