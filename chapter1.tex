@@ -2,7 +2,6 @@
 
 \chapter{Background and related work}
 \label{cha:background}
-\todo{Purpose of this study? What do we want to achieve? What should we do next?}
 
 \section{Publication identifiers}
 \label{sec:Publication identifiers}
@@ -64,7 +63,7 @@ It contains the text of the new version, as well as information about the contri
 Wikipedia pages are categorized under different \emph{namespaces}, according to their function.
 To dictate the membership of a namespace, page titles are prefixed with the namespace followed by a colon.
 For instance, user pages belongs to the ``User'' namespace, and their title is prefixed with the string \textbf{User:}.
-In the case of the article (or main) namespace, in which encyclopedia articles appear, the prefix is omitted.
+The prefix is omitted for pages belonging to the main namespace, in which the encyclopedia articles appear.
 
 At the time of writing, Wikipedia has 35 namespaces: 16 subject namespaces, 16 corresponding talk namespaces, 2 virtual namespaces, and 1 special namespace.
 \todo{explain some of these namespaces}
@@ -83,6 +82,7 @@ Bots are usually employed to to repetitive and mundane tasks, such as correcting
 \paragraph{Redirects}
 A redirect is a page that has no content itself but sends the reader to another page, usually an article or a section of an article.
 Redirects can be created for many reasons, among which:
+\todo{indent the bullets}
 \begin{description*}
     \item[Alternative names] An entity may be known as different names.
     For instance, the page \emph{Edison Arantes do Nascimento} is a redirect to \emph{Pelé}, which is the most appropriate article title according to Wikipedia rules.
@@ -155,7 +155,7 @@ It also contains the references (in term of citations) between them, which is so
 Unfortunately this source is not 100\% accurate, and in Sect.~\ref{sec:mag_dataset} are described some of its problems.
 
 
-\todo{Should the problems of the datasets be explained here or in chapter 2?}
+\todo{Explain here the problems of this dataset}
 
 % \section{Big data}
 % \label{sec:bigdata}
@@ -166,7 +166,12 @@ Unfortunately this source is not 100\% accurate, and in Sect.~\ref{sec:mag_datas
 % In fact, some of them are so large that a single processor machine can not analyze them in a reasonable time.
 % For instance, as described in Sect.~\ref{sec:reordering_pagecounts}, the cleaning and reordering of page views could take years \todo{verify this} to complete on a single machine.
 % To solve this problem, we make use of the UniTN Cisca cluster processing power to parallelize the task.
-
+\section{Apache Spark}
+Apache Spark is an open source cluster computing framework originally developed in the AMPLab at University of California, Berkeley but was later donated to the Apache Software Foundation.
+The basic building block of Spark is the \ac{RDD}, a logical collection of data partitioned across machines.
+An \acs{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
+The value of Spark comes from the fact that transformations can be applied in parallel by multiple \emph{workers}.
+\todo{Expand me.}
 
 \section{Related work}
 \label{sec:relatedwork}

@@ -7,7 +7,7 @@ Also, we give a description of the machines used to execute our software, togeth
 
 \section{Infrastructure}
 \label{sec:infrastructure}
-The various software components have been written and tested on a MacBook Pro with Retina Display.
+The various software components have been written and tested on a MacBook Pro.
 Its specification can be found in Table~\ref{tbl:tech_specs}.
 Its storage is limited to 500 GB and because of the size of our datasets it was not possible to run the programs on all of them.
 
@@ -189,11 +189,6 @@ Also, you could not perform any search optimization based on bisection, since th
 Therefore we decided to reorganize this dataset, normalizing the content and sorting it by the (project, page, timestamp) \emph{key}, without losing information.
 
 The program written for this purposes is a Spark job, using the Python programming language.
-\todo{Should I move the Spark description to chapter 1?}
-Apache Spark is an open source cluster computing framework originally developed in the AMPLab at University of California, Berkeley but was later donated to the Apache Software Foundation.
-The basic building block of Spark is the \ac{RDD}, a logical collection of data partitioned across machines.
-An \acs{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
-The value of Spark comes from the fact that transformations can be applied in parallel by multiple \emph{workers}.
 
 The idea is to normalize the content of the input files, then repartition the entities (i.e.\ the tuples containing the statistics for a given page in a project in a specific hour) using the ordering key.
 Finally, every output partition is re-ordered locally and the result is saved into a different CSV file.
