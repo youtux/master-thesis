@@ -99,9 +99,70 @@ Finally, to give a scale to this numbers, Fig.~\ref{fig:age_of_papers_at_first_a
 \end{figure}
 
 \subsection{Identifiers lifetime}
-todo: show graph of identifier insertions in time
-analizza la persistenza degli identifier inseriti e rimossi
+It is interesting also to analyze how long identifiers live inside a page.
+In particular, the focus of this sections is on identifiers which have been inserted in a page and then removed for some reason, most probably because of irrelevance.
+The rationale behind this choice is to analyze how long an irrelevant identifier stayed on a page before somebody removed it.
 
-fare la average della persistenza degli identifier escludendo la coda
-\subsection{Publication date distribution}
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/persistence_removed_identifiers_pdf}
+\caption{todo}
+\label{fig:persistence_removed_identifiers_pdf}
+\end{figure}
+
+Fig.~\ref{fig:persistence_removed_identifiers_pdf} shows the \ac{pmf} of the lifetime of removed identifiers, aggregated by day.
+Only the first 100 days are shown.
+It is interesting to see that, for instance, more than the 20\% of the irrelevant \acp{DOI} are removed by the first day.
+
+To get a more accurate idea of what is happening, Fig.~\ref{fig:persistence_removed_identifiers_cdf_days} shows the \ac{cdf} of these series.
+The probability of removing an irrelevant identifier is fairly high in the beginning, but then it slowly decays.
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/persistence_removed_identifiers_cdf_days}
+\caption{todo}
+\label{fig:persistence_removed_identifiers_cdf_days}
+\end{figure}
+
+Fig.~\ref{fig:persistence_removed_identifiers_cdf_first_day} displays what happen in the first day.
+We can see that about the 15\% of irrelevant identifiers are discovered and removed right from the first hour of their appearance in a page.
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/persistence_removed_identifiers_cdf_first_day}
+\caption{todo}
+\label{fig:persistence_removed_identifiers_cdf_first_day}
+\end{figure}
+
+%A word of caution: we assume that if an identifier has been removed from a page and it is not present in the last revision at the time of the dump, then its appearance in the page is not relevant.
+
+\subsection{Publication growth}
+In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from about 1650 to 1950.
+The data indicated a growth rate of about 5.6\% per year and a doubling time of 13 years.
+
+The study of this matter has then been propose again by many, showing that the growth varies depending on the dataset used and analyzing different period of times.
+For instance, Larsen et al.~\cite{Larsen2010} in the 2010 studied the growth using different datasets and limited to the time period between the 1907 and the 2007.
+They showed that there are many other factors that determine the growth of publications that should be considered.
+
+We have reproduced the result of Price, using the linear regression method, and we have obtained comparable results: the overall growth rate we have found is about 3,80\% and a doubling time of 18 years.
+Fig.~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
+
+It is interesting to see also which is the distribution of the publication date of papers appearing in Wikipedia, and compare it with the distribution of the publication date of all the paper (Fig.~\ref{fig:publication_date_pdf}).
+\todo{continue}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_regression}
+\caption{Publication date count for all the papers appearing in the \ac{MAG} dataset and its estimate curve obtained with linear regression}
+\label{fig:publication_date_regression}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_pdf}
+\caption{Publication date distribution for all the known papers and for papers found in Wikipedia (only the ones having a DOI)}
+\label{fig:publication_date_pdf}
+\end{figure}
+
 \subsection{Top cited journals by views}
