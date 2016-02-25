@@ -179,9 +179,15 @@ Unfortunately this source is not 100\% accurate, and in Sect.~\ref{sec:mag_datas
 The software developed in this work uses the Apache Spark framework to accelerate the computation of some datasets.
 Apache Spark is an open source cluster computing framework originally developed in the AMPLab at University of California, Berkeley but was later donated to the Apache Software Foundation.
 The basic building block of Spark is the \ac{RDD}, a logical collection of data partitioned across machines.
-An \acs{RDD} can be created from existing data sources, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
-The value of Spark comes from the fact that transformations can be applied in parallel by multiple \emph{workers}.
-\todo{Expand me.}
+Spark includes various drivers to fetch data from different sources like databases (SQL and NO-SQL), HTTP, Amazon S3, HDFS, etc.
+An \acs{RDD} can be created from various formats, such as \ac{CSV} files, or by applying transformation like \emph{map}, \emph{filter}, \emph{reduce} on other \acp{RDD}.
 
-\section{Related work}
-\label{sec:relatedwork}
+The value of Spark comes from the fact that transformations and other operations can be applied in parallel by multiple \emph{executors}.
+An executor is a process spawned by a \emph{worker}, which is an instance of Spark running on a machine.
+Furthermore, all the transformations are \emph{lazy} in that they don't compute the result right away.
+Instead, they are computed only when needed: this design enables Spark to run more efficiently.
+For example, it can realize that a dataset created through a \emph{map} will be used in a \emph{reduce} and return only the result of the reduce to the driver (i.e.\ the process running the application), rather than the larger mapped dataset.
+
+One can run a Spark program on a single machine exploiting the available cores, but the real power of Spark comes when a cluster is available.
+It is sufficient to start the cluster manager on the \emph{master} host and the worker on the \emph{slaves} to exploit the processing power of the whole cluster.
+In the end, however, some tuning of the application is needed to make the most out of the available resources.
