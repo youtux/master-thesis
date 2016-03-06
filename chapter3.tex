@@ -2,15 +2,45 @@
 
 \chapter{Data analysis}
 \label{cha:data_analysis}
-The datasets created allow to perform some measurement regarding the use of scholarly works in the English Wikipedia.
+The datasets generated with our program allow to perform some measurement regarding the use of scholarly works in the English Wikipedia.
 \todo{TODO\@: other statistics? Maybe some that use the pagecounts?}
 
-\section{Wikipedia articles}
-\subsection{Where do identifiers appear in a Wikipedia article?}
+\section{Wikipedia sections overview}
+Before analyzing the behavior of the scholarly citations appearing in Wikipedia, we present a brief overview of the sections appearing in the articles.
 
-\subsection{How many sections Wikipedia articles have?}
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/section_counts_last_pdf}
+\caption{Distribution of the number of sections per article found in the English Wikipedia at the 1st of September, 2015.
+Each bar represent how many articles have that number of sections, divided by the total number of articles.}
+\label{fig:section_counts_last_pdf}
+\end{figure}
 
-\subsection{Which are the most common sections in Wikipedia articles?}
+Fig.~\ref{fig:section_counts_last_pdf} show the distribution of the number of sections in Wikipedia articles at the time of the snapshot (September 1st, 2015).
+The result is somewhat expected from the perspective of a Wikipedia reader: the probability of having $x$ number of sections in an article decreases with the number of sections considered.
+However it is interesting to see that the distribution peaks at $x = 1$ number of sections and not at $x = 0$.
+
+To justify this fact a further investigation is required.
+However, we hypothesize that articles with less that 2 sections are usually stubs, and that they contains a ``references'' or an ``external links'' sections with the source of information used to create the article.
+\todo{is this explanation acceptable?}
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/section_names_last_top_25}
+\caption{Ranking of the top 25 section names found in the English Wikipedia at the 1st of September, 2015.
+The value of each bar is the number of articles where that section appears}
+\label{fig:section_names_last_top_25}
+\end{figure}
+
+It is also interesting to analyze which are the most common section names used.
+The result is shown in Fig.~\ref{fig:section_names_last_top_25}.
+The most common section used is ``references''.
+According to Wikipedia guidelines, this section is intended to contain citations, footnotes and general references.
+Therefore it is expected that it appears in the first position of the ranking.
+``External links'' usually contains links to the original material described in the article, while in ``see also'' there are usually interlinks to related articles, hence their popularity.
+
+It is also expected to see that topics like ``career'' and ``biography'' appear together, because articles about persons usually include both of them.
+
 
 \section{Papers in Wikipedia}
 This section analyzes the use of papers in wikipedia.
@@ -34,7 +64,7 @@ In our case, the \ac{ccdf}, or \emph{tail distribution}, expresses the percentag
 From Fig.~\ref{fig:incoming_citations_ccdf_1000}~and~\ref{fig:incoming_citations_ccdf_100} we can see that papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
 For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers have at least 10 incoming citations.
 A plausible explanation is that users tend to insert papers with a higher rank in term of incoming citations, rather than ones with less impact on the scientific community.
-\todo{Regarding the ``All papers'' serie, should we limit only papers having DOIs?}
+\todo{Add graphs comparing various journals}
 % see https://en.wikipedia.org/wiki/User:ProteinBoxBot.
 
 
@@ -58,6 +88,37 @@ A plausible explanation is that users tend to insert papers with a higher rank i
 \caption{Complementary cumulative distribution function of the first 100 incoming citations of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia.}
 \label{fig:incoming_citations_ccdf_100}
 \end{figure}
+
+\subsection{Publication date of papers in Wikipedia}
+Now we are going to see the publication date distribution of papers appearing in Wikipedia.
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_pdf}
+\caption{Publication date distribution of all the known papers form the MAG dataset and the ones found in Wikipedia through the DOIs in the last 60 years, up to the 2014.
+}
+\label{fig:publication_date_pdf}
+\end{figure}
+
+Fig.~\ref{fig:publication_date_pdf} shows exactly this distribution together with a baseline, ``All papers'', representing the distribution of the publication date of all the known papers.
+Wikipedia articles tend to cite papers which are released in the last few years.
+This is expected because that the number of papers published grows each year and because many works are replicated and extended by other authors and only the newer ones tend to be cited.
+
+
+% publication growth
+In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from about 1650 to 1950.
+The data indicated a growth rate of about 5.6\% per year and a doubling time of 13 years.
+
+The study of this matter has then been propose again by many, showing that the growth varies depending on the dataset used and analyzing different period of times.
+For instance, Larsen et al.~\cite{Larsen2010} in the 2010 studied the growth using different datasets and limited to the time period between the 1907 and the 2007.
+They showed that there are many other factors that determine the growth of publications that should be considered.
+
+We have reproduced the result of Larsen et al.\ using the linear regression method, and we have obtained comparable results: the overall growth rate we have found is about 3,98\% and a doubling time of 17,4 years.
+Fig.~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
+
+It is interesting to see also which is the distribution of the publication date of papers appearing in Wikipedia, and compare it with the distribution of the publication date of all the paper (Fig.~\ref{fig:publication_date_pdf}).
+
+
 
 \subsection{Age of identifiers at first appearance}
 Another interesting information to analyze is the age of the papers when they first appear in Wikipedia.
@@ -136,20 +197,6 @@ We can see that about the 15\% of irrelevant identifiers are discovered and remo
 
 %A word of caution: we assume that if an identifier has been removed from a page and it is not present in the last revision at the time of the dump, then its appearance in the page is not relevant.
 
-\subsection{Publication growth}
-In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from about 1650 to 1950.
-The data indicated a growth rate of about 5.6\% per year and a doubling time of 13 years.
-
-The study of this matter has then been propose again by many, showing that the growth varies depending on the dataset used and analyzing different period of times.
-For instance, Larsen et al.~\cite{Larsen2010} in the 2010 studied the growth using different datasets and limited to the time period between the 1907 and the 2007.
-They showed that there are many other factors that determine the growth of publications that should be considered.
-
-We have reproduced the result of Price, using the linear regression method, and we have obtained comparable results: the overall growth rate we have found is about 3,80\% and a doubling time of 18 years.
-Fig.~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
-
-It is interesting to see also which is the distribution of the publication date of papers appearing in Wikipedia, and compare it with the distribution of the publication date of all the paper (Fig.~\ref{fig:publication_date_pdf}).
-\todo{this graph is wrong. Show the one with the cumulative paper publish date. Also the growth rate and doubling time are slightly different}
-\todo{continue}
 
 
 \begin{figure}[h]
@@ -159,11 +206,6 @@ It is interesting to see also which is the distribution of the publication date 
 \label{fig:publication_date_regression}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_pdf}
-\caption{Publication date distribution for all the known papers and for papers found in Wikipedia (only the ones having a DOI)}
-\label{fig:publication_date_pdf}
-\end{figure}
+
 
 %\subsection{Top cited journals by views}
