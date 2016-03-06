@@ -28,10 +28,10 @@ The technical specifications of the single workstation are not impressive (see T
 \begin{tabular}{@{}lrrr@{}}
 \toprule
 \multicolumn{1}{c}{\textbf{}} & \textbf{MacBook Pro}           & \textbf{adige}                  & \textbf{Cisca workstation} \\ \midrule
-Processor                     & 2.3GHz quad-core Intel i7 & 3.60GHz quad-core Intel i7 &                            \\
-Memory                        & 16 GB                          & 32 GB                           &                            \\
-Storage                       & 500 GB (SSD)                   & 793 GB (HD)                     &                            \\
-Network card                  & 1 GBps                         & 1 GBps                          &                            \\ \bottomrule
+Processor                     & 2.3GHz quad-core Intel i7 & 3.60GHz quad-core Intel i7 &  3.2GHz quad-core Intel i5  \\
+Memory                        & 16 GB                          & 32 GB                           &   4 GB                         \\
+Storage                       & 500 GB (SSD)                   & 793 GB (HD)                     &  20 GB                          \\
+Network card                  & 1 GBps                         & 1 GBps                          &  1 GBps                          \\ \bottomrule
 \end{tabular}
 \todo{Add specs for workstations}
 \end{table}
@@ -113,7 +113,7 @@ Every file of this dataset contains the aggregated page view for a specific hour
 Files use a CSV dialect with \emph{spaces} as separators and they are compressed using the gzip format.
 The encoding of this file is not documented.
 Many of them seem to use UTF-8, while others ISO-8859-2. % chktex 8
-We use the first decoder for all the files, and whenever a Unicode endpoint cannot be found, we replace it with the official \textbf{U+FFFD} replacement character.
+We use the first decoder for all the files, and whenever a Unicode endpoint cannot be found, we replace it with the official \texttt{U+FFFD} replacement character.
 
 Every file is named according the following format:
 \begin{verbatim}

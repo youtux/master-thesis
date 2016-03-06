@@ -113,6 +113,17 @@ The paper also discovered that 55\% of Wikipedia articles are redirects.
 We have replicated their work using the latest data available and results are consistent with the original ones: at the time of writing, the 59\% of Wikipedia articles are redirects (Table~\ref{tbl:redirects}).
 This is particularly important in our analysis when we analyze how many users visited a page, because we must follow the redirects to get the correct count.
 
+\begin{table}[]
+\centering
+\caption{Count of Wikipedia redirects as of 1/9/2015}
+\label{tbl:redirects}
+\begin{tabular}{llll}
+\multicolumn{1}{c}{\textbf{}}          & \multicolumn{1}{c}{\textbf{\# Redirects}} & \multicolumn{1}{c}{\textbf{\# Pages}} & \textbf{Percentage} \\ \hline
+\multicolumn{1}{l|}{All namespaces}    & 8350978                                & 37178009                               & 22,46\%             \\
+\multicolumn{1}{l|}{Article namespace} & 7075838                                & 11941857                               & 59,25\%
+\end{tabular}
+\end{table}
+
 \paragraph{Vandalism}
 Wikipedia articles can be edited by anyone --- there is no credential checking.
 Changes are visible to everyone immediately, without any review cycle.
@@ -127,19 +138,6 @@ Furthermore, administrators can prevent contributors from editing pages by banni
 This, however, can not solve the problem definitively because a contributor can change its IP address or create a new fake account.
 
 %This is a serious problem for any analysis and requires some extra effort to reduce the impact it has in our results.
-
-\begin{table}[]
-\centering
-\caption{Count of Wikipedia redirects as of 1/9/2015}
-\label{tbl:redirects}
-\begin{tabular}{llll}
-\multicolumn{1}{c}{\textbf{}}          & \multicolumn{1}{c}{\textbf{\# Redirects}} & \multicolumn{1}{c}{\textbf{\# Pages}} & \textbf{Percentage} \\ \hline
-\multicolumn{1}{l|}{All namespaces}    & 8350978                                & 37178009                               & 22,46\%             \\
-\multicolumn{1}{l|}{Article namespace} & 7075838                                & 11941857                               & 59,25\%
-\end{tabular}
-\end{table}
-
-
 
 \section{Wikimedia page view statistics}
 \label{sec:pagecounts}
