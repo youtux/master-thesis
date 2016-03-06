@@ -4,28 +4,35 @@
 \label{cha:Contributions}
 In this chapter we describe the dataset generated and the software developed which are made available for further works.
 
-\subsection{Page views ordered by project, article}
-\label{sub:contrib_datasets_pagecounts}
+\section{Page views ordered by project, article}
+\label{sec:contrib_datasets_pagecounts}
 \todo{Importance of this dataset, maybe cite~\cite{Priedhorsky2007}}
+This dataset~\cite{Bogon2016} has been generated starting from the Wikimedia's pagecounts-raw dataset using the program described in Sect.\ref{sub:Sorting pagecounts}.
+It contains the page view statistics for all the Wikimedia projects in the year 2014, ordered by (project, page, timestamp).
+We plan to generate this collection also for the remaining years.
+The size is 4\,728 GB (428 GB compressed) split across 67056 files.
 
+The content of the dataset is formatted in CSV, where each row describe the number of visitors a page of a Wikimedia project had in a specific hour.
+The fields are the following:
+\begin{itemize}
+    \item project: the name of the Wikimedia project, lowercase
+    \item page: the name of the page, URL-escaped
+    \item timestamp: the timestamp of the hour, (format \mintinline{text}{%Y%m%d-%H%M%S})
+    \item count: the number of times the page has been requested
+    \item bytes: the number of bytes transferred
+\end{itemize}
 
+We also released a Python library, \emph{pagecounts-search}\footnote{\url{https://github.com/youtux/pagecounts-search}}, to search through this source of information.
+It can be used either as a library inside another project or directly as a command line tool.
 
-\section{Programs}
-\label{sec:Programs}
-
-\subsection{Wikipedia extraction framework}
+\section{Wikipedia extraction framework}
 \label{sub:contrib_programs_framework}
-\todo{Decide whether to insert this}
+The \emph{wikidump}\footnote{\url{https://github.com/youtux/wikidump}} framework started as a project to extract some features from the Wikipedia dumps described in Sect.~\ref{sec:Wikipedia dumps}.
+It uses libraries developed by Aaron Halfaker to analyze the XML structure and to extract identifiers from the text using regular expressions and parsers.
+We have modified the identifiers extraction module to improve its performance, and it is currently waiting to be merged in the \emph{python-mwrefs}\footnote{\url{https://github.com/mediawiki-utilities/python-mwrefs}} library.
 
+The framework now allows the extraction of features such as the history of publication identifiers (\ac{ISBN}, \ac{DOI}, \ac{PMID}, \emph{arXiv}), statistics about the sections of pages, interlinks between pages, etc.
 
-\subsection{Identifiers extraction}
-\label{sub:contrib_programs_idextract}
-Pull request on Aaron's github repo mwrefs
-
-
-\subsection{pagecounts-search}
-\label{sub:contrib_programs_pagecountssearch}
-Programs that search counts by project, article
-
-\subsection{Identifiers in a page visualizer}
-Tool to generate the timeline of the identifiers in a wikipedia page.
+It analyzes the dumps by iterating over the elements of the XML file, without keeping them in memory to avoid exhaustion.
+It also automatically decompress the input file if it needs to, and has a command line switch to enable the compression of the output file.
+Because of the nature of the dataset, the program can be used to analyze more files in parallel.
