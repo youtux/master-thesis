@@ -50,6 +50,13 @@ The distribution of scholarly citations has been studied many times by the scien
 The problem is to understand the law that describes the \emph{distribution of citations} of papers, namely the distribution of the number of papers $N(x)$ that have been cited $x$ times.
 Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$ \todo{explain some more of that article}.
 
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_loglog}
+\caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log-log scale.}
+\label{fig:incoming_citations_loglog}
+\end{figure}
+
 Fig.~\ref{fig:incoming_citations_loglog} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389 thousands).
 The number of incoming citation for a paper is determined using the \ac{MAG} dataset.
 Notice that the only identifier available in the \ac{MAG} is the \ac{DOI}, hence only the papers found in Wikipedia which have a \ac{DOI} are considered.
@@ -68,12 +75,7 @@ A plausible explanation is that users tend to insert papers with a higher rank i
 % see https://en.wikipedia.org/wiki/User:ProteinBoxBot.
 
 
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_loglog}
-\caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log-log scale.}
-\label{fig:incoming_citations_loglog}
-\end{figure}
+
 
 \begin{figure}[h]
 \centering
@@ -118,6 +120,13 @@ Fig.~\ref{fig:publication_date_regression} compares the actual growth with the o
 
 It is interesting to see also which is the distribution of the publication date of papers appearing in Wikipedia, and compare it with the distribution of the publication date of all the paper (Fig.~\ref{fig:publication_date_pdf}).
 
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_regression}
+\caption{Publication date count for all the papers appearing in the \ac{MAG} dataset and its estimate curve obtained with linear regression}
+\label{fig:publication_date_regression}
+\end{figure}
+
 
 
 \subsection{Age of identifiers at first appearance}
@@ -159,52 +168,92 @@ Finally, to give a scale to this numbers, Fig.~\ref{fig:age_of_papers_at_first_a
 \label{fig:age_of_papers_at_first_appearance_cdf}
 \end{figure}
 
-\subsection{Identifiers lifetime}
-It is interesting also to analyze how long identifiers live inside a page.
-In particular, the focus of this sections is on identifiers which have been inserted in a page and then removed for some reason, most probably because of irrelevance.
-The rationale behind this choice is to analyze how long an irrelevant identifier stayed on a page before somebody removed it.
+
+\subsection{Lifetime of irrelevant citations inside an article}
+It is interesting to analyze how long academic citations live inside a page.
+In particular, the focus of this sections is on publication identifiers which have been inserted in a page and then removed for some reason, most probably because of irrelevance.
+The rationale behind this choice is to analyze how long does it take for a Wikipedia contributor to discover and remove an irrelevant identifier appearing in an article.
+
+We define the notion of irrelevance as follows: an identifier is considered \emph{irrelevant} for a Wikipedia article if it appeared on that article in the past but it does no more appear in that page at the time of the snapshot being taken, in our case the 1st of September 2015.
+
+The lifetime of irrelevant identifiers found in different pages is depicted in the left column of Figure~\ref{fig:irrelevant_identifiers_and_dois}, by the meaning of plots displaying the cumulative distribution function.
+The ordinate describe how many identifiers in different pages lived at most $x$ time units (e.g.\ years, months or days).
+In another way, the graphs show how long did it take for the Wikipedians to remove the irrelevant identifiers from the articles where they appear.
+Each series describe the behavior of a certain type of identifier (i.e.\ \ac{ISBN}, \ac{DOI}, \ac{PMID} or \emph{arXiv})
+All the curves starts with a steep climb in the first period of time.
+Indeed more than the 60\% of irrelevant \ac{ISBN} and \ac{DOI} ``lived'' in articles for less than one year.
+Something more worth of notice is that 35\% of \acp{DOI} ``lived'' less than one month, and more than the 20\% less then one day.
+
+However, it may also be the case that many identifiers are removed almost immediately because they are typos made by a contributor while he was editing the page.
+
+We have a way to distinguish \acp{DOI} which are valid (i.e.\ that refer to an existing object) from the ones that are not.
+We first search for the DOI in the MAG corpus: if it exists then it is valid, otherwise we query directly the DOI authority using the available APIs\footnote{\url{http://www.doi.org/factsheets/DOIProxy.html}}.
+
+
+Figure~\ref{fig:irrelevant_identifiers_count} shows the number of \acp{DOI} appearances that are generated by valid and invalid DOIs.
+We observe that just the 4\% of them are due to an unrecognized identifier, most probably a typo.
+The right column of Figure~\ref{fig:irrelevant_identifiers_and_dois} shows how long DOIs lived inside Wikipedia articles, along with the ones that are not recognized.
+We observe, as expected, that the latter do not play a major role in the distribution.
+This fact reject the hypothesis that a good part of irrelevant DOIs are removed almost immediately because they are typos made by editors.
+
+Considering the fact that more than the 20\% of irrelevant \acp{ISBN} and \acp{DOI} are removed within the first day, we conclude that the effort made by Wikipedians to remove irrelevant references inside the articles is both remarkable and effective.
 
 \begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/persistence_removed_identifiers_pdf}
-\caption{todo}
-\label{fig:persistence_removed_identifiers_pdf}
+    \centering
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=1\linewidth]{assets/irrelevant_identifiers_persistence_cdf_max}
+\label{fig:irrelevant_identifiers_persistence_cdf_max}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=1\linewidth]{assets/irrelevant_doi_persistence_cdf_max}
+\label{fig:irrelevant_doi_persistence_cdf_max}
+    \end{subfigure}
+
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=1\linewidth]{assets/irrelevant_identifiers_persistence_cdf_1month}
+\label{fig:irrelevant_identifiers_persistence_cdf_1month}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=1\linewidth]{assets/irrelevant_doi_persistence_cdf_1month}
+\label{fig:irrelevant_doi_persistence_cdf_1month}
+    \end{subfigure}
+
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=1\linewidth]{assets/irrelevant_identifiers_persistence_cdf_1day}
+\label{fig:irrelevant_identifiers_persistence_cdf_1day}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=1\linewidth]{assets/irrelevant_doi_persistence_cdf_1day}
+\label{fig:irrelevant_doi_persistence_cdf_1day}
+    \end{subfigure}
+    \caption{On the left column: distribution of the time required to remove irrelevant identifiers, with a detailed view of the first month and the first day.
+    On the right column: distribution of the time required to remove irrelevant DOIs, along with the number of unrecognized DOIs.
+    The y-axis describes the ratio of identifier removed in different Wikipedia articles within $x$ time units.}
+\label{fig:irrelevant_identifiers_and_dois}
 \end{figure}
 
-Fig.~\ref{fig:persistence_removed_identifiers_pdf} shows the \ac{pmf} of the lifetime of removed identifiers, aggregated by day.
-Only the first 100 days are shown.
-It is interesting to see that, for instance, more than the 20\% of the irrelevant \acp{DOI} are removed by the first day.
-
-To get a more accurate idea of what is happening, Fig.~\ref{fig:persistence_removed_identifiers_cdf_days} shows the \ac{cdf} of these series.
-The probability of removing an irrelevant identifier is fairly high in the beginning, but then it slowly decays.
-
 \begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/persistence_removed_identifiers_cdf_days}
-\caption{todo}
-\label{fig:persistence_removed_identifiers_cdf_days}
-\end{figure}
-
-Fig.~\ref{fig:persistence_removed_identifiers_cdf_first_day} displays what happen in the first day.
-We can see that about the 15\% of irrelevant identifiers are discovered and removed right from the first hour of their appearance in a page.
-
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/persistence_removed_identifiers_cdf_first_day}
-\caption{todo}
-\label{fig:persistence_removed_identifiers_cdf_first_day}
+    \centering
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\textwidth]{assets/irrelevant_identifiers_count_by_type}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\textwidth]{assets/irrelevant_doi_count_by_validity}
+    \end{subfigure}
+    \caption{On the left side: number of irrelevant identifiers appearances in different Wikipedia articles.
+    On the right side: the number of appearances of DOIs not recognized by the authority along with the total number of DOI appearances.}
+\label{fig:irrelevant_identifiers_count}
 \end{figure}
 
 %A word of caution: we assume that if an identifier has been removed from a page and it is not present in the last revision at the time of the dump, then its appearance in the page is not relevant.
-
-
-
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_regression}
-\caption{Publication date count for all the papers appearing in the \ac{MAG} dataset and its estimate curve obtained with linear regression}
-\label{fig:publication_date_regression}
-\end{figure}
 
 
 
