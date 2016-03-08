@@ -1,5 +1,5 @@
 % !TEX root = thesis.tex
-
+\cleardoublepage{}
 \chapter{System architecture}
 \label{cha:system_architecture}
 This section analyzes in detail the structure of the datasets, their problems and their peculiarities.
@@ -20,7 +20,7 @@ Even though the disk space is not a problem, the processing power is still an is
 To mitigate this problem, we exploit the UniTN Cisca cluster.
 It consist of circa 125 workstations, each of them having 4 cores available.
 The technical specifications of the single workstation are not impressive (see Table~\ref{tbl:tech_specs}), but the fact that we can use more than 500 cores in total makes the difference.
-\todo{explain the difficulty with working with torque}
+This required some effort because Torque, the queue manager involved, is not easy to understand and the documentation of the command line programs was not easily reachable.
 
 \begin{table}[]
 \centering
@@ -34,7 +34,6 @@ Memory                        & 16 GB                          & 32 GB          
 Storage                       & 500 GB (SSD)                   & 793 GB (HD)                     &  20 GB                          \\
 Network card                  & 1 GBps                         & 1 GBps                          &  1 GBps                          \\ \bottomrule
 \end{tabular}
-\todo{Add specs for workstations}
 \end{table}
 
 
@@ -71,7 +70,6 @@ This is followed by a sequence of \mintinline{xml}{<page>} elements, each of the
 Notice that if the title contains a space, it is not replaced by an underscore.
 After that there is sequence of \mintinline{xml}{<revision>} tags.
 A revision is identified by an identifier, and usually have also reference (parent id) to the previous reference.
-\todo{maybe show that page revision graph is cyclic}
 In the case of the first revision of a page, this field is left empty.
 There are some other metadata fields, like the timestamp, the contributor and the comment.
 Finally, we can find the actual source of the page in plain text format.
@@ -176,9 +174,6 @@ It consists of just two columns: the referring and the referred paper identifier
 Finally, there are other files that contains information about the \emph{Journals}, \emph{Conferences}, \emph{Authors}, \emph{Keywords}, etc.
 
 
-\todo{Explain that the ``conferences'' dataset is extremely biased: it seems that there are only compsci conferences}
-
-
 \section{Software}
 \label{sec:software}
 \subsection{Sorting pagecounts}
@@ -197,9 +192,7 @@ Finally, every output partition is re-ordered locally and the result is saved in
 
 Our program will indeed create an \ac{RDD} for every input file, which are implicitly decompressed upon read operations.
 Each line of the file is normalized: the project field is converted to lowercase and the page title is decoded according to RFC 1808~\cite{rfc1808}.
-This transformation may cause multiple lines that refer to the same entity.
-\todo{explain why}
-Therefore it is necessary to merge these lines into one, summing the count of the views and the bytes transferred.
+Multiple lines that refer to the same page are merged by summing the count of the views and the bytes transferred.
 A \emph{key function} is also defined: it takes a tuple of the form $(timestamp, project, page, counts, bytes)$ and returns the $(project, page)$ key.
 
 To repartition the entities, we need to fix the number of output partition.

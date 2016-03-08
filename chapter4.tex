@@ -1,5 +1,5 @@
 % !TEX root = thesis.tex
-
+\cleardoublepage{}
 \chapter{Contributions}
 \label{cha:Contributions}
 In this chapter we describe the dataset generated and the software developed which are made available for further works.
@@ -8,11 +8,11 @@ In this chapter we describe the dataset generated and the software developed whi
 \label{sec:contrib_datasets_pagecounts}
 \todo{Importance of this dataset, maybe cite~\cite{Priedhorsky2007}}
 This dataset~\cite{Bogon2016} has been generated starting from the Wikimedia's pagecounts-raw dataset using the program described in Sect.\ref{sub:Sorting pagecounts}.
-It contains the page view statistics for all the Wikimedia projects in the year 2014, ordered by (project, page, timestamp).
+It contains the page view statistics for all the Wikimedia projects in the year 2014, ordered by $(project, page, timestamp)$.
 We plan to generate this collection also for the remaining years.
 The size is 4\,728 GB (428 GB compressed) split across 67056 files.
 
-The content of the dataset is formatted in CSV, where each row describe the number of visitors a page of a Wikimedia project had in a specific hour.
+The content of the dataset is formatted in CSV, where each row describes the number of requests for a page of in a specific hour.
 The fields are the following:
 \begin{itemize}
     \item project: the name of the Wikimedia project, lowercase
@@ -31,8 +31,8 @@ The \emph{wikidump}\footnote{\url{https://github.com/youtux/wikidump}} framework
 It uses libraries developed by Aaron Halfaker to analyze the XML structure and to extract identifiers from the text using regular expressions and parsers.
 We have modified the identifiers extraction module to improve its performance, and it is currently waiting to be merged in the \emph{python-mwrefs}\footnote{\url{https://github.com/mediawiki-utilities/python-mwrefs}} library.
 
-The framework now allows the extraction of features such as the history of publication identifiers (\ac{ISBN}, \ac{DOI}, \ac{PMID}, \emph{arXiv}), statistics about the sections of pages, interlinks between pages, etc.
+The framework allows the extraction of features such as the history of publication identifiers (\ac{ISBN}, \ac{DOI}, \ac{PMID}, \emph{arXiv}), statistics about the pages' sections, interlinks between pages, etc.
 
-It analyzes the dumps by iterating over the elements of the XML file, without keeping them in memory to avoid exhaustion.
-It also automatically decompress the input file if it needs to, and has a command line switch to enable the compression of the output file.
+It analyzes the dumps by iterating over the elements of the XML file, without keeping them in memory in order to avoid exhaustion.
+It also automatically decompresses the input file if needed and the user can choose to enable the compression of the output file.
 Because of the nature of the dataset, the program can be used to analyze more files in parallel.

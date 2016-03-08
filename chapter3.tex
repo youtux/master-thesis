@@ -1,5 +1,5 @@
 % !TEX root = thesis.tex
-
+\cleardoublepage{}
 \chapter{Data analysis}
 \label{cha:data_analysis}
 The datasets generated with our program allow to perform some measurement regarding the use of scholarly works in the English Wikipedia.
@@ -15,12 +15,12 @@ Each bar represent the fraciton of articles have $x$ sections.}
 \label{fig:section_counts_last_pdf}
 \end{figure}
 
-Fig.~\ref{fig:section_counts_last_pdf} show the distribution of the number of sections in Wikipedia articles at the time of the snapshot (September 1st, 2015).
+Figure~\ref{fig:section_counts_last_pdf} show the distribution of the number of sections in Wikipedia articles at the time of the snapshot (September 1st, 2015).
 The result is somewhat expected from the perspective of a Wikipedia reader: the probability of having $x$ number of sections in an article decreases with the number of sections considered.
 However it is interesting to see that the distribution peaks at $x = 1$ number of sections and not at $x = 0$.
 
 To justify this fact a further investigation is required.
-However, we hypothesize that articles with less that 2 sections are usually stubs, and that they contains a ``references'' or an ``external links'' sections with the source of information used to create the article.
+However, we hypothesize that articles with less that 2 sections are usually stubs, and that they contains sections like ``references'' or ``external links'' which are used to cite the sources used to create the article.
 
 \begin{figure}[h]
 \centering
@@ -31,7 +31,7 @@ Each bar represent the number of articles where the section appears.}
 \end{figure}
 
 It is also interesting to analyze which are the most common section names used.
-The result is shown in Figure~\ref{fig:section_names_last_top_25}\todo{this should probably be a table}.
+The result is shown in Figure~\ref{fig:section_names_last_top_25} \todo{this should probably be a table}.
 The most common section used is ``references''.
 According to Wikipedia guidelines, this section is intended to contain citations, footnotes and general references.
 Therefore it is expected that it appears in the first position of the ranking.
@@ -41,11 +41,9 @@ It is also expected to see that topics like ``career'' and ``biography'' appear 
 
 
 \section{Papers in Wikipedia}
-This section analyzes the use of papers in wikipedia.
-
 \subsection{Incoming citations distribution}
 The distribution of scholarly citations has been studied many times by the scientific community.
-The problem is to understand the law that describes the \emph{distribution of citations} of papers, namely the distribution of the number of papers $N(x)$ that have been cited $x$ times.
+The problem is to understand the law that describes the papers' \emph{distribution of citations}, namely the distribution of the number of papers $N(x)$ that have been cited $x$ times.
 Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$.
 
 \begin{figure}[h]
@@ -56,7 +54,7 @@ On the ordinate, the number of papers having exactly $x$ incoming references, gl
 \label{fig:incoming_citations_distribution_pdf}
 \end{figure}
 
-Fig.~\ref{fig:incoming_citations_distribution_pdf} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389 thousands).
+Figure~\ref{fig:incoming_citations_distribution_pdf} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389 thousands).
 The number of incoming citation for a paper is determined using the \ac{MAG} dataset.
 Notice that the only identifier available in the \ac{MAG} is the \ac{DOI}, hence only the papers found in Wikipedia which have a \ac{DOI} are considered.
 This accounts for the 28\% of the identifiers found.
@@ -90,15 +88,13 @@ Genome Research                      & 6850                         \\ \bottomru
 \label{tbl:top_cited_wikipedia_journals}
 \end{table}
 
-Figure~\ref{fig:incoming_citations_distribution_ccdf} shows the cumulative distribution of the incoming citations of papers in Wikipedia and compares it with the one of the top cited papers in Wikipedia, represented in Table~\ref{tbl:top_cited_wikipedia_journals}.
+Figure~\ref{fig:incoming_citations_distribution_ccdf} shows the cumulative distribution of the incoming citations of papers in Wikipedia compared to the top 5 cited papers in Wikipedia, represented in Table~\ref{tbl:top_cited_wikipedia_journals}.
 First of all, papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
 This is expected and we would be surprise if that was not the case.
-For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers have at least 10 incoming citations.
+For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers taken random from the \ac{MAG} have at least 10 incoming citations.
+The ``goodness'' of the Wikipedia ones is second only to papers that have been published in \emph{Genome Research} or \emph{PNAS}, while they outclass journals like \emph{Science} and \emph{Nature}.
 
-More useful is the comparison between the behavior of papers in Wikipedia with some of the most cited journals in Wikipedia.
-The ``goodness'' of them is second only to papers that have been published in \emph{Genome Research} or \emph{PNAS}, while they outclass journals like \emph{Science} and \emph{Nature}.
-
-However, we have to keep in mind that Wikipedia contains a selection of papers, and thus it is just a confirmation that the ones that appear already had an impact on the scientific community.
+However, we have to keep in mind that Wikipedia contains a selection of papers and thus it is just a confirmation that they already had an impact on the scientific community.
 
 The fact that more than the 40\% of papers published by \emph{Science} or \emph{Nature} have zero incoming citations in the scientific community was not expected.
 We want to exclude the hypothesis that they did not have much time to get an impact on the community.
@@ -126,18 +122,18 @@ Instead, papers in \emph{Nature} and \emph{Science} are older but still they do 
 
 Figure~\ref{fig:publication_date_pdf} compares the same distribution for papers appearing in Wikipedia with all the known ones.
 Wikipedia articles tend to cite papers which are released in the last few years.
-This is expected because that the number of papers published grows each year and because many works are replicated and extended by other authors and only the newer ones tend to be cited.
+This is expected because every year authors replicates and extends previous works and only the newer ones tend to be cited.
 
 From the plot we can also see that the number of papers published increases each year.
-In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from about 1650 to 1950.
-The data indicated a growth rate of about 5.6\% per year and a doubling time of 13 years.
+In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from the 1650 to the 1950.
+The results showed a growth rate of about 5.6\% per year and a doubling time of 13 years.
 
-The study of this matter has then been propose again by many, showing that the growth varies depending on the dataset used and analyzing different period of times.
-For instance, Larsen et al.~\cite{Larsen2010} in the 2010 studied the growth using different datasets and limited to the time period between the 1907 and the 2007.
+This study has been proposed again by many, showing that the growth rate varies depending on the dataset used and the period of time analyzed.
+For instance, Larsen et al.~\cite{Larsen2010} in 2010 studied the growth using different datasets and limited the analysis to the time period between the 1907 and the 2007.
 They showed that there are many other factors that determine the growth of publications that should be considered.
 
-We have reproduced the result of Larsen et al.\ using the linear regression method, and we have obtained comparable results: the overall growth rate we have found is about 3,98\% and a doubling time of 17,4 years.
-Fig.~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
+We have reproduced the result of Larsen et al.\ using the linear regression method, and we have obtained comparable results: the overall growth rate that we have found is 3,98\% and the doubling time is 17,4 years.
+Figure~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
 
 \begin{figure}[h]
 \centering
@@ -148,11 +144,12 @@ Fig.~\ref{fig:publication_date_regression} compares the actual growth with the o
 
 \subsection{Age of identifiers at first appearance}
 Another interesting information to analyze is the age of the papers when they first appear in Wikipedia.
-Fig.~\ref{fig:age_of_papers_at_first_appearance_pdf} shows the distribution of the age of papers when they are referenced on Wikipedia for the first time.
-We do not expect to see negative values, because this would mean that an identifier appears in Wikipedia before the paper is published.
+This distribution is shown in Figure~\ref{fig:age_of_papers_at_first_appearance_pdf}.
+We do not expect to see negative values, because this would mean that a paper appears in Wikipedia before it has been published.
 In practice this happens because the \ac{MAG} dataset is not 100\% accurate, and some publication dates may contain errors.
 We have investigated this problem, and it seems to be caused by how Microsoft extracts the publication date of a paper.
-It appears that if a paper is published online on a certain date, and it is also released after in a journal, Microsoft consider the date of the journal the publication date.
+It appears that if a paper is published online on a certain date and it is also released afterwards in a journal, Microsoft consider the date of the journal the publication date.
+
 However, only the 3,12\% of the \acp{DOI} extracted have a negative age, so the effect of this error is arguably marginal, as we can see from Figure~\ref{fig:age_of_papers_at_first_appearance_cdf}.
 This plot shows cumulative distribution of the series, namely what is the percentage $F(x)$ of paper identifiers which are inserted in Wikipedia at most $x$ days after their publication.
 
@@ -189,13 +186,13 @@ It is interesting to analyze how long academic citations live inside a page.
 In particular, the focus of this sections is on publication identifiers which have been inserted in a page and then removed for some reason, most probably because of irrelevance.
 The rationale behind this choice is to analyze how long does it take for a Wikipedia contributor to discover and remove an irrelevant identifier appearing in an article.
 
-We define the notion of irrelevance as follows: an identifier is considered \emph{irrelevant} for a Wikipedia article if it appeared on that article in the past but it does no more appear in that page at the time of the snapshot being taken, in our case the 1st of September 2015.
+We define the notion of irrelevance as follows: an identifier is considered \emph{irrelevant} for a Wikipedia article if it appeared on that article in the past but it does not appear in the last revision at the time of the snapshot, in our case the 1st of September 2015.
 
 The lifetime of irrelevant identifiers found in different pages is depicted in the left column of Figure~\ref{fig:irrelevant_identifiers_and_dois}, by the meaning of plots displaying the cumulative distribution function.
 The ordinate describe how many identifiers in different pages lived at most $x$ time units (e.g.\ years, months or days).
-In another way, the graphs show how long did it take for the Wikipedians to remove the irrelevant identifiers from the articles where they appear.
-Each series describe the behavior of a certain type of identifier (i.e.\ \ac{ISBN}, \ac{DOI}, \ac{PMID} or \emph{arXiv})
-All the curves starts with a steep climb in the first period of time.
+In another way, the graphs show how long did it take for the Wikipedia community to remove the irrelevant identifiers from the articles where they appear.
+Each series describe the behavior of a certain type of identifier (i.e.\ \ac{ISBN}, \ac{DOI}, \ac{PMID} or \emph{arXiv}).
+All the curves start with a steep climb in the first period of time.
 Indeed more than the 60\% of irrelevant \ac{ISBN} and \ac{DOI} ``lived'' in articles for less than one year.
 Something more worth of notice is that 35\% of \acp{DOI} ``lived'' less than one month, and more than the 20\% less then one day.
 
@@ -211,7 +208,7 @@ The right column of Figure~\ref{fig:irrelevant_identifiers_and_dois} shows how l
 We observe, as expected, that the latter do not play a major role in the distribution.
 This fact reject the hypothesis that a good part of irrelevant DOIs are removed almost immediately because they are typos made by editors.
 
-Considering the fact that more than the 20\% of irrelevant \acp{ISBN} and \acp{DOI} are removed within the first day, we conclude that the effort made by Wikipedians to remove irrelevant references inside the articles is both remarkable and effective.
+Considering the fact that more than the 20\% of irrelevant \acp{ISBN} and \acp{DOI} are removed within the first day, we conclude that the effort made by Wikipedia community to remove irrelevant references inside the articles is both remarkable and effective.
 
 \begin{figure}[h]
     \centering
