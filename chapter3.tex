@@ -3,7 +3,6 @@
 \chapter{Data analysis}
 \label{cha:data_analysis}
 The datasets generated with our program allow to perform some measurement regarding the use of scholarly works in the English Wikipedia.
-\todo{TODO\@: other statistics? Maybe some that use the pagecounts?}
 
 \section{Wikipedia sections overview}
 Before analyzing the behavior of the scholarly citations appearing in Wikipedia, we present a brief overview of the sections appearing in the articles.
@@ -11,8 +10,8 @@ Before analyzing the behavior of the scholarly citations appearing in Wikipedia,
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true, width=\textwidth]{assets/section_counts_last_pdf}
-\caption{Distribution of the number of sections per article found in the English Wikipedia at the 1st of September, 2015.
-Each bar represent how many articles have that number of sections, divided by the total number of articles.}
+\caption{Distribution of the number of sections per article found in the English Wikipedia at the 1st of September 2015.
+Each bar represent the fraciton of articles have $x$ sections.}
 \label{fig:section_counts_last_pdf}
 \end{figure}
 
@@ -22,18 +21,17 @@ However it is interesting to see that the distribution peaks at $x = 1$ number o
 
 To justify this fact a further investigation is required.
 However, we hypothesize that articles with less that 2 sections are usually stubs, and that they contains a ``references'' or an ``external links'' sections with the source of information used to create the article.
-\todo{is this explanation acceptable?}
 
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true, width=\textwidth]{assets/section_names_last_top_25}
-\caption{Ranking of the top 25 section names found in the English Wikipedia at the 1st of September, 2015.
-The value of each bar is the number of articles where that section appears}
+\caption{Ranking of the top 25 section names found in the English Wikipedia at the 1st of September 2015.
+Each bar represent the number of articles where the section appears.}
 \label{fig:section_names_last_top_25}
 \end{figure}
 
 It is also interesting to analyze which are the most common section names used.
-The result is shown in Fig.~\ref{fig:section_names_last_top_25}.
+The result is shown in Figure~\ref{fig:section_names_last_top_25}\todo{this should probably be a table}.
 The most common section used is ``references''.
 According to Wikipedia guidelines, this section is intended to contain citations, footnotes and general references.
 Therefore it is expected that it appears in the first position of the ranking.
@@ -48,66 +46,89 @@ This section analyzes the use of papers in wikipedia.
 \subsection{Incoming citations distribution}
 The distribution of scholarly citations has been studied many times by the scientific community.
 The problem is to understand the law that describes the \emph{distribution of citations} of papers, namely the distribution of the number of papers $N(x)$ that have been cited $x$ times.
-Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$ \todo{explain some more of that article}.
+Redner~\cite{Redner1998} suggested that this distribution has a large-$x$ power law decay $N(x) \sim x^{-\alpha}$.
 
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_loglog}
-\caption{Incoming citations distribution of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia, on a log-log scale.}
-\label{fig:incoming_citations_loglog}
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_citations_distribution_pdf}
+\caption{Incoming citations distribution of papers appearing in the \ac{MAG} datasets and the ones appearing only in English Wikipedia, on a log-log scale.
+On the ordinate, the number of papers having exactly $x$ incoming references, globally.}
+\label{fig:incoming_citations_distribution_pdf}
 \end{figure}
 
-Fig.~\ref{fig:incoming_citations_loglog} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389 thousands).
+Fig.~\ref{fig:incoming_citations_distribution_pdf} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389 thousands).
 The number of incoming citation for a paper is determined using the \ac{MAG} dataset.
 Notice that the only identifier available in the \ac{MAG} is the \ac{DOI}, hence only the papers found in Wikipedia which have a \ac{DOI} are considered.
 This accounts for the 28\% of the identifiers found.
 Furthermore, from this set of papers we removed the ones that appears to be ``non-valid'' in the \ac{MAG} dataset, namely the ones that have more than one \ac{DOI}.
 The amount of papers considered at the end is the 17\% of the identifiers found in Wikipedia.
 
-From the graph we can only see that both the distribution follow some kind of power law.
+This graph alone does not give much information.
 It is more interesting to analyze the \ac{ccdf} of the two series.
-In our case, the \ac{ccdf}, or \emph{tail distribution}, expresses the percentage of papers $\bar{F}(x)$ that have more than $x$ citations.
+The \ac{ccdf}, or \emph{tail distribution}, expresses the percentage of papers $\bar{F}(x)$ that have at least $x$ citations.
 
-From Fig.~\ref{fig:incoming_citations_ccdf_1000}~and~\ref{fig:incoming_citations_ccdf_100} we can see that papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_citations_distribution_ccdf}
+\caption{Tail distribution of the incoming citations of papers appearing in Wikipidia compared with the ones appearing in the top 5 cited journals.
+On the ordinate, the fraction of papers having at least $x$ incoming references.}
+\label{fig:incoming_citations_distribution_ccdf}
+\end{figure}
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}lr@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{Journal}} & \textbf{Wikipedia citations} \\ \midrule
+PNAS                                 & 16273                        \\
+Nature                               & 13403                        \\
+Science                              & 11019                        \\
+Journal of Biological Chemistry      & 8587                         \\
+Genome Research                      & 6850                         \\ \bottomrule
+\end{tabular}
+\caption{Top 5 journals cited in Wikipedia articles, with the number of distinct citations in different articles.}
+\label{tbl:top_cited_wikipedia_journals}
+\end{table}
+
+Figure~\ref{fig:incoming_citations_distribution_ccdf} shows the cumulative distribution of the incoming citations of papers in Wikipedia and compares it with the one of the top cited papers in Wikipedia, represented in Table~\ref{tbl:top_cited_wikipedia_journals}.
+First of all, papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
+This is expected and we would be surprise if that was not the case.
 For instance, the 74\% of papers in Wikipedia have at least 10 incoming citations, while only the 13\% of papers have at least 10 incoming citations.
-A plausible explanation is that users tend to insert papers with a higher rank in term of incoming citations, rather than ones with less impact on the scientific community.
-\todo{Add graphs comparing various journals}
-% see https://en.wikipedia.org/wiki/User:ProteinBoxBot.
 
+More useful is the comparison between the behavior of papers in Wikipedia with some of the most cited journals in Wikipedia.
+The ``goodness'' of them is second only to papers that have been published in \emph{Genome Research} or \emph{PNAS}, while they outclass journals like \emph{Science} and \emph{Nature}.
 
+However, we have to keep in mind that Wikipedia contains a selection of papers, and thus it is just a confirmation that the ones that appear already had an impact on the scientific community.
 
-
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_1000}
-\caption{Complementary cumulative distribution function of the first 100 incoming citations of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia.}
-\label{fig:incoming_citations_ccdf_1000}
-\end{figure}
+The fact that more than the 40\% of papers published by \emph{Science} or \emph{Nature} have zero incoming citations in the scientific community was not expected.
+We want to exclude the hypothesis that they did not have much time to get an impact on the community.
 
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/incoming_cits_ccdf_100}
-\caption{Complementary cumulative distribution function of the first 100 incoming citations of papers appearing in the \emph{mag} datasets and the ones appearing only in English Wikipedia.}
-\label{fig:incoming_citations_ccdf_100}
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_distribution_journals}
+\caption{Publication date distribution of the top 5 journals cited in Wikipedia, starting from the 1900.
+On the ordinate, the fraction of papers published in each year.}
+\label{fig:publication_date_distribution_journals}
 \end{figure}
-
-\subsection{Publication date of papers in Wikipedia}
-Now we are going to see the publication date distribution of papers appearing in Wikipedia.
 
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_pdf}
-\caption{Publication date distribution of all the known papers form the MAG dataset and the ones found in Wikipedia through the DOIs in the last 60 years, up to the 2014.
+\caption{Publication date distribution of all the known papers the ones found in Wikipedia in the last 60 years, up to the 2014.
+On the ordinate, the fraction of papers published in each year.
 }
 \label{fig:publication_date_pdf}
 \end{figure}
 
-Fig.~\ref{fig:publication_date_pdf} shows exactly this distribution together with a baseline, ``All papers'', representing the distribution of the publication date of all the known papers.
+The graph in Figure~\ref{fig:publication_date_distribution_journals} shows the publication date distribution of the top 5 journals cited in Wikipedia.
+We can see that many of the papers published in the \emph{Genome Research} are not older than 20 years, yet most of them have a good number of citations.
+Instead, papers in \emph{Nature} and \emph{Science} are older but still they do not get as many citations.
+
+Figure~\ref{fig:publication_date_pdf} compares the same distribution for papers appearing in Wikipedia with all the known ones.
 Wikipedia articles tend to cite papers which are released in the last few years.
 This is expected because that the number of papers published grows each year and because many works are replicated and extended by other authors and only the newer ones tend to be cited.
 
-
-% publication growth
+From the plot we can also see that the number of papers published increases each year.
 In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from about 1650 to 1950.
 The data indicated a growth rate of about 5.6\% per year and a doubling time of 13 years.
 
@@ -118,16 +139,12 @@ They showed that there are many other factors that determine the growth of publi
 We have reproduced the result of Larsen et al.\ using the linear regression method, and we have obtained comparable results: the overall growth rate we have found is about 3,98\% and a doubling time of 17,4 years.
 Fig.~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
 
-It is interesting to see also which is the distribution of the publication date of papers appearing in Wikipedia, and compare it with the distribution of the publication date of all the paper (Fig.~\ref{fig:publication_date_pdf}).
-
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true, width=\textwidth]{assets/publication_date_regression}
-\caption{Publication date count for all the papers appearing in the \ac{MAG} dataset and its estimate curve obtained with linear regression}
+\caption{Publication date count for all the papers appearing in the \ac{MAG} dataset and the estimate obtained with the linear regression method.}
 \label{fig:publication_date_regression}
 \end{figure}
-
-
 
 \subsection{Age of identifiers at first appearance}
 Another interesting information to analyze is the age of the papers when they first appear in Wikipedia.
@@ -144,8 +161,6 @@ We have analyzed some of these cases, and it appears that that some authors inse
 Finally, to give a scale to this numbers, Fig.~\ref{fig:age_of_papers_at_first_appearance_cdf} measure is the \ac{cdf} of the series, namely what is the percentage $F(x)$ of paper identifiers inserted in Wikipedia at most $x$ days after their publication.
 \todo{conclude, somehow}
 
-% Notes:
-% Kamil Crater (doi 10.1126/science.1190990) has been added by the author as soon as possible. \url{https://en.wikipedia.org/w/index.php?title=Kamil_Crater&diff=next&oldid=375884625}
 
 \begin{figure}[h]
 \centering
