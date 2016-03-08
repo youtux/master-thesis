@@ -148,41 +148,41 @@ Fig.~\ref{fig:publication_date_regression} compares the actual growth with the o
 
 \subsection{Age of identifiers at first appearance}
 Another interesting information to analyze is the age of the papers when they first appear in Wikipedia.
-Fig.~\ref{fig:age_of_papers_at_first_appearance} shows the distribution of the age of papers when they are inserted on Wikipedia for the first time.
-In theory there should not be negative values, because this would mean that an identifier appears in Wikipedia before the paper is published.
+Fig.~\ref{fig:age_of_papers_at_first_appearance_pdf} shows the distribution of the age of papers when they are referenced on Wikipedia for the first time.
+We do not expect to see negative values, because this would mean that an identifier appears in Wikipedia before the paper is published.
 In practice this happens because the \ac{MAG} dataset is not 100\% accurate, and some publication dates may contain errors.
 We have investigated this problem, and it seems to be caused by how Microsoft extracts the publication date of a paper.
 It appears that if a paper is published online on a certain date, and it is also released after in a journal, Microsoft consider the date of the journal the publication date.
-However, only the 3,12\% of the \acp{DOI} extracted have a negative age, so the effect of the error is arguably quite marginal.
+However, only the 3,12\% of the \acp{DOI} extracted have a negative age, so the effect of this error is arguably marginal, as we can see from Figure~\ref{fig:age_of_papers_at_first_appearance_cdf}.
+This plot shows cumulative distribution of the series, namely what is the percentage $F(x)$ of paper identifiers which are inserted in Wikipedia at most $x$ days after their publication.
 
-It is interesting to see that many \acp{DOI} are inserted in Wikipedia few days after their publication (Fig.~\ref{fig:age_of_papers_at_first_appearance_zoom}).
-We have analyzed some of these cases, and it appears that that some authors insert the identifier of their paper as soon as it has been published.
-
-Finally, to give a scale to this numbers, Fig.~\ref{fig:age_of_papers_at_first_appearance_cdf} measure is the \ac{cdf} of the series, namely what is the percentage $F(x)$ of paper identifiers inserted in Wikipedia at most $x$ days after their publication.
-\todo{conclude, somehow}
+It is interesting to see that many \acp{DOI} have been inserted in Wikipedia a few days after their publication (Figure~\ref{fig:age_of_papers_at_first_appearance_pdf_near0}).
+We have analyzed some of these cases, and it appears that that some authors insert the identifier of their paper in a Wikipedia article as soon as it has been published.
+However, these cases do not play a major role in the overall distribution since they account for just the 0,49\% of papers inserted.
 
 
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/age_of_papers_at_first_appearance}
-\caption{Distribution of the age of papers when their DOI appear for the first time on Wikipedia.}
-\label{fig:age_of_papers_at_first_appearance}
-\end{figure}
 
 \begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/age_of_papers_at_first_appearance_-30+30}
-\caption{Distribution of the age of papers when their DOI appear for the first time on Wikipedia, showing only ages between $[-30, 30]$ days.}
-\label{fig:age_of_papers_at_first_appearance_zoom}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[keepaspectratio=true, width=\textwidth]{assets/age_of_papers_at_first_appearance_cdf}
-\caption{todo}
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\linewidth]{assets/age_of_papers_at_first_appearance_pdf}
+        \caption{Cumulative distribution of the age of papers when they appear for the first time on Wikipedia.}
+\label{fig:age_of_papers_at_first_appearance_pdf}
+    \end{subfigure}
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\linewidth]{assets/age_of_papers_at_first_appearance_pdf_near0}
+        \caption{Distribution of the age of papers when their DOI appear for the first time on Wikipedia, specifically between $[-30, 30]$ days.}
+\label{fig:age_of_papers_at_first_appearance_pdf_near0}
+    \end{subfigure}
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\linewidth]{assets/age_of_papers_at_first_appearance_cdf}
+        \caption{Cumulative distribution of the age of papers when they appear for the first time on Wikipedia.}
 \label{fig:age_of_papers_at_first_appearance_cdf}
+    \end{subfigure}
 \end{figure}
-
 
 \subsection{Lifetime of irrelevant citations inside an article}
 It is interesting to analyze how long academic citations live inside a page.
@@ -269,7 +269,3 @@ Considering the fact that more than the 20\% of irrelevant \acp{ISBN} and \acp{D
 \end{figure}
 
 %A word of caution: we assume that if an identifier has been removed from a page and it is not present in the last revision at the time of the dump, then its appearance in the page is not relevant.
-
-
-
-%\subsection{Top cited journals by views}

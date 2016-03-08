@@ -238,10 +238,7 @@ Secondly, the text of a revision should be stripped of comments, which may conta
 
 Since we want to build the history of the appearances, we have to decide an ordering mechanism.
 Since revisions have an id and a parent id, at first we tried to use the topological ordering of the directed graph induced by the ``parent of'' relation, from now on the \emph{history graph}.
-On some pages this worked fine, but soon we discovered that it may contain cycles.
-\todo{An example is shown in Fig.~\ref{fig:todo}.}
-\todo{Explain why there are cycles}
-So we decided to order the revisions by their timestamp.
+On some pages this worked fine, but soon we discovered that it may contain cycles, so we decided to order the revisions by their timestamp.
 
 The output is a CSV file, each line describing the appearance of an identifier inside a page.
 It has the following form:
