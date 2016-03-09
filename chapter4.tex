@@ -6,7 +6,6 @@ In this chapter we describe the dataset generated and the software developed whi
 
 \section{Page views ordered by project, article}
 \label{sec:contrib_datasets_pagecounts}
-\todo{Importance of this dataset, maybe cite~\cite{Priedhorsky2007}}
 This dataset~\cite{Bogon2016} has been generated starting from the Wikimedia's pagecounts-raw dataset using the program described in Section~\ref{sub:Sorting pagecounts}.
 It contains the page view statistics for all the Wikimedia projects in the year 2014, ordered by $(project, page, timestamp)$.
 We plan to generate this collection also for the remaining years.
@@ -24,6 +23,9 @@ The fields are the following:
 
 We also released a Python library, \emph{pagecounts-search}\footnote{\url{https://github.com/youtux/pagecounts-search}}, to search through this source of information.
 It can be used either as a library inside another project or directly as a command line tool.
+
+This dataset has been created because we found that the original page views dataset is not well suited for most of the purposes.
+Indeed some of the cited works use dodge the problem by restricting the number of pages to be analyzed or by using alternative sources.
 
 \section{Wikipedia extraction framework}
 \label{sub:contrib_programs_framework}
