@@ -1,5 +1,18 @@
 % !TEX root = thesis.tex
-
+\cleardoublepage{}
 \chapter{Conclusion and further work}
 \label{cha:conclusion}
-TODO
+From the analysis in Chapter~\ref{cha:data_analysis}, the ``goodness'' of scholarly citations appearing in Wikipedia is comparable with most important journals, like PNAS or JBC.
+It is also interesting to see that it outclass journals like Nature or Science, which appear to publish a large amount of articles that have less impact.
+We have to keep in mind, however, that Wikipedia has to be seen as an aggregator of papers, therefore it is natural to expect that the cited papers had more impact with respect to the ones appearing in journals.
+Still, this is a good result in term of the quality of service delivered by the Wikipedia community.
+Another confirmation is given by the speed at which irrelevant citations are removed from articles.
+
+The analysis, however, reflects errors attributed to the dataset used to extract information like publication dates and references between papers.
+The authors of the \ac{MAG} dataset claim that it have an above 95\% accuracy, but we do not really know technical results of this evaluation and most importantly the impact of these errors on our analysis.
+It would be interesting to test the quality of this dataset, but it would require a great amount of time to annotate a test set for the validation.
+
+The page views dataset created, together with the \emph{pagecounts-search} library provided, allow a fast search of page statistics with the maximum detail available.
+It would be interesting to reproduce of the results of Priedhorsky et al.~\cite{Priedhorsky2007} (at the time of the paper these statistics were not available and the authors had to approximate page views using a web browser toolbar)
+or the ones of Moat et al.~\cite{Moat2013} (which used data aggregated by week).
+Another interesting application would be to analyze the impact of scholarly citations in Wikipedia measured in term of visualizations.

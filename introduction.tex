@@ -3,15 +3,26 @@
 \chapter*{Introduction} % without page enumeration
 \label{introduction}
 \addcontentsline{toc}{chapter}{Introduction} % add me to the index anyway
-TODO
+Ever since Wikipedia was a few years old, there have been numerous academic studies about it.
+Many of them analyze the production and reliability of the encyclopedia content, such as comparing the quality of articles to the Encyclopædia Britannica~\cite{Giles2005}.
+Others have studied the social aspect, such as usage and administration.
+For instance, Priedhorsky et al.~\cite{Priedhorsky2007} studied the population of Wikipedia contributors and the impact of false content in term of page visualizations.
+Page visualizations plays an important role in recent studies:
+for instance, McIver et al.~\cite{McIver2014} built a predictive model for the spread of influenza-like illness in the United States and Moat et al.~\cite{Moat2013} implemented a stock market moves strategy based on Wikipedia views.
 
-Sommario è un breve riassunto del lavoro svolto dove si descrive l'obiettivo, l'oggetto della tesi, le
-metodologie e le tecniche usate, i dati elaborati e la spiegazione delle conclusioni alle quali siete arrivati.
+It is very interesting to see that it is possible to predict behavior of many phenomena from the usage of Wikipedia.
+Unfortunately, the page views dataset suffers from technical debt and it is not really suited for large-scale analysis.
 
-Il sommario dell’elaborato consiste al massimo di 3 pagine e deve contenere le seguenti informazioni:
-\begin{itemize}
-  \item contesto e motivazioni
-  \item breve riassunto del problema affrontato
-  \item tecniche utilizzate e/o sviluppate
-  \item risultati raggiunti, sottolineando il contributo personale del laureando/a
-\end{itemize}
+We want to address this problem by providing a clean dataset which supports efficient analysis of page visualization.
+The main difficulty for such task is given by the size of the dataset: its size is 4 728 GB for just the 2014, while the overall size up (from the 2008 to the 2015) is estimated to be 23 TB.
+While the space requirements can be addressed, the computational power required is problematic.
+Indeed we make use of the UniTN cluster infrastructure to split the work among multiple machines, exploiting the Apache Spark framework.
+
+We also develop a framework to analyze Wikipedia dumps that can be used to extract arbitrary features, such as the publication identifiers for scholarly works appearing in articles.
+With the extracted data, we analyze some of the patterns involving the behavior of such citations.
+
+In Chapter~\ref{cha:background} we describe background concepts including publication identifiers, the Wikipedia structure and available resources, the Microsoft Academic Service that we exploit to understand links between academic papers and a brief overview of the Apache Spark framework.
+Chapter~\ref{cha:system_architecture} examines in detail the infrastructure used to recreate the page views dataset, the structure and problems of datasets and the implementation of the software developed.
+Chapter~\ref{cha:data_analysis} analyzes the behavior of scholarly citations in Wikipedia extracted using the developed software.
+Chapter~\ref{cha:Contributions} shows the dataset and the programs developed and
+in Chapter~\ref{cha:conclusion} we show what can be refined and we present some starting point for further research.
