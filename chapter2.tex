@@ -16,7 +16,7 @@ Its hardware is not very different from the MacBook (see Table~\ref{tbl:tech_spe
 Since we are going to need at least 866 GB just to store the Wikimedia page view statistics, the network office also allocated a 4 TB network disk.
 This machine is always on, so we can launch the programs and retrieve the results as soon as they finish, without worrying of system reboots.
 
-Even though the disk space is not a problem, the processing power is still an issue when we want to sort the page view statistics, as described in Sect.~\ref{sub:Sorting pagecounts}.
+Even though the disk space is not a problem, the processing power is still an issue when we want to sort the page view statistics, as described in Section~\ref{sub:Sorting pagecounts}.
 To mitigate this problem, we exploit the UniTN Cisca cluster.
 It consist of circa 125 workstations, each of them having 4 cores available.
 The technical specifications of the single workstation are not impressive (see Table~\ref{tbl:tech_specs}), but the fact that we can use more than 500 cores in total makes the difference.
@@ -146,7 +146,7 @@ The second line exhibit an example of escaping: the actual name of the page was 
 
 \subsection{Microsoft academic graph}
 \label{sec:mag_dataset}
-Microsoft release a dump of the dataset powering Microsoft Academic Search in form of CSV files, compressed with zip.
+Microsoft released a dump of the dataset powering Microsoft Academic Search in form of CSV files, compressed with zip.
 A brief overview of the size of the dataset is shown in Table~\ref{tbl:mag_size}.
 
 \begin{table}[h]
@@ -212,7 +212,7 @@ This results in a new \ac{RDD} normalized and sorted by $(page, project, timesta
 The last step is to save the result in a CSV file.
 The dataset is actually split in multiple gzipped CSV files, one for each partition, so that no more reshuffles are needed.
 
-Since this job is highly parallelizable, we exploit the UniTN Cisca cluster described in Sect.~\ref{sec:infrastructure}.
+Since this job is highly parallelizable, we exploit the UniTN Cisca cluster described in Section~\ref{sec:infrastructure}.
 Spark ships with a cluster manager which makes this operation more or less painless.
 It is sufficient to start the Spark executable on the workstations and wait for them to connect to the master server.
 Once they are ready, it is sufficient to launch the job on the master, and it automatically splits the tasks between the workers.
@@ -221,7 +221,7 @@ Once they are ready, it is sufficient to launch the job on the master, and it au
 \label{sub:Analyzing Wikipedia dumps}
 The main analysis made on Wikipedia XML Dumps consist of extracting the history of the appearances of scholarly citations in Wikipedia articles.
 To accomplish this, it is necessary to scan the text of all the revisions of every page and look for what seems to be a valid identifier.
-As explained in Sect.~\ref{sec:Publication identifiers}, our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
+As explained in Section~\ref{sec:Publication identifiers}, our search is limited to the following identifiers: \ac{DOI}, \ac{ISBN}, \emph{arXiv} and \ac{PMID}.
 The program created uses a set of regular expressions that tries to match the identifiers' specifications.
 This set has been originally developed by Aaron Halfaker and is part of the python-mwcites library\footnote{\url{https://github.com/mediawiki-utilities/python-mwcites}}.
 

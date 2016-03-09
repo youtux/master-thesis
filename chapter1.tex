@@ -5,7 +5,7 @@
 
 \section{Publication identifiers}
 \label{sec:Publication identifiers}
-In scientific publishing environment that is increasingly moving online, identifiers of scholarly works plays a major role.
+In the scientific publishing environment that is increasingly moving online, identifiers of scholarly works plays a major role.
 Indeed articles may be hosted in different places on the web and often there is more than one version of an article available.
 Identifiers are crucial to disambiguate articles that may share similar titles, or that  share the same set of authors because of homonymy.
 There are many different types of identifier nowadays, some used more than others.
@@ -17,7 +17,7 @@ It originated in a joint initiative of three trade associations in the publishin
 Millions of \ac{DOI} names have been assigned to date, through a growing federation of Registration Agencies worldwide.
 For example, the Crossref application is used by more than 4\,800 publishers and societies to enable cross-citation of scholarly publications; the DataCite international federation of data centres uses the \ac{DOI} system; and the Entertainment Identifier Registry applies \ac{DOI} names to film and broadcast assets.
 
-The \acf{ISBN} was developed by the \acf{ISO} and was published in 1970 as the ISO 2108.
+The \acf{ISBN} was developed by the \acf{ISO} and was published in 1970 as ISO 2108.
 It originated from the \ac{SBN} code, a numeric commercial book identifier created by Gordon Foster, Emeritus Professor of Statistics at Trinity College, Dublin.
 A unique \ac{ISBN} is assigned to every edition and variant of a book.
 
@@ -105,12 +105,12 @@ Redirects can be created for many reasons, among which:
 To mark a page as a redirect, it is necessary to include the string
 \mintinline{text}{#redirect: [[Target]]} inside its source, where \emph{Target} is the page to which the reader will be redirected.
 
-A recent study by Hill et al.~\cite{Hill2014} shows that redirect pages play an important role in Wikipedia, and must keep in consideration when analyzing it.
-They studied the work of Priedhorsky et al.~\cite{Priedhorsky2007} \todo{read it, confirm it}, where a surprisingly weak correlation between page edits and views have been found.
-Hill et al. reproduced the analysis accounting for redirects and showed that the correlation is higher than the one discovered by the original authors.
+A recent study by Hill et al.~\cite{Hill2014} shows that redirect pages play an important role in Wikipedia, and must be taken into consideration when analyzing it.
+They studied the work of Priedhorsky et al.~\cite{Priedhorsky2007}, where a surprisingly weak correlation between page edits and views have been found.
+Hill et al.\ reproduced the analysis accounting for redirects and showed that the correlation is higher than the one discovered by the original authors.
 
 The paper also discovered that 55\% of Wikipedia articles are redirects.
-We have replicated their work using the latest data available and results are consistent with the original ones: at the time of writing, the 59\% of Wikipedia articles are redirects (Table~\ref{tbl:redirects}).
+We have replicated their work using the latest data available and results are consistent with the original ones: at the time of writing, 59\% of Wikipedia articles are redirects (Table~\ref{tbl:redirects}).
 This is particularly important in our analysis when we analyze how many users visited a page, because we must follow the redirects to get the correct count.
 
 \begin{table}[]
@@ -145,8 +145,8 @@ Back in 2007, Domas Mituzas, a long-time volunteer database administrator for th
 These statistics are now maintained by the Analytics Team\footnote{\url{https://www.mediawiki.org/wiki/Analytics}}.
 The dataset contains the number of non-unique visitors for each page for all the Wikimedia projects, aggregated by hour.
 
-A detailed explanation of the dataset is given in Sect.~\ref{sec:pagecounts}.
-Unfortunately this dataset needs a lot of cleaning and, in order to be used effectively, needs to be reordered, as described in Sect.~\ref{sub:Sorting pagecounts}.
+A detailed explanation of the dataset is given in Section~\ref{sec:pagecounts}.
+Unfortunately this dataset needs a lot of cleaning and, in order to be used effectively, needs to be reordered, as described in Section~\ref{sub:Sorting pagecounts}.
 
 \section{Microsoft Academic Service}
 \label{sec:mag}
@@ -159,7 +159,7 @@ The dataset is available under the name of \ac{MAG}\footnote{\url{http://researc
 It contains 120\,887\,833 papers at the time of writing and some of them date back to 1800.
 It also contains the references (in term of citations) between them, which is something of great value.
 
-Unfortunately this source is not 100\% accurate, and in Sect.~\ref{sec:mag_dataset} are described some of its problems.
+Unfortunately this source is not 100\% accurate, and in Section~\ref{sec:mag_dataset} are described some of its problems.
 
 
 \todo{Explain here the problems of this dataset}
@@ -171,7 +171,7 @@ Unfortunately this source is not 100\% accurate, and in Sect.~\ref{sec:mag_datas
 %
 % The datasets used in our analysis belongs to the ``big data'' category.
 % In fact, some of them are so large that a single processor machine can not analyze them in a reasonable time.
-% For instance, as described in Sect.~\ref{sec:reordering_pagecounts}, the cleaning and reordering of page views could take years \todo{verify this} to complete on a single machine.
+% For instance, as described in Section~\ref{sec:reordering_pagecounts}, the cleaning and reordering of page views could take years \todo{verify this} to complete on a single machine.
 % To solve this problem, we make use of the UniTN Cisca cluster processing power to parallelize the task.
 \section{Apache Spark}
 The software developed in this work uses the Apache Spark framework to accelerate the computation of some datasets.
@@ -182,7 +182,7 @@ An \acs{RDD} can be created from various formats, such as \ac{CSV} files, or by 
 
 The value of Spark comes from the fact that transformations and other operations can be applied in parallel by multiple \emph{executors}.
 An executor is a process spawned by a \emph{worker}, which is an instance of Spark running on a machine.
-Furthermore, all the transformations are \emph{lazy} in that they don't compute the result right away.
+Furthermore, all the transformations are \emph{lazy} in that they do not compute the result right away.
 Instead, they are computed only when needed: this design enables Spark to run more efficiently.
 For example, it can realize that a dataset created through a \emph{map} will be used in a \emph{reduce} and return only the result of the reduce to the driver (i.e.\ the process running the application), rather than the larger mapped dataset.
 
