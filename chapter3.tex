@@ -73,22 +73,22 @@ On the ordinate, the fraction of papers having at least $x$ incoming references.
 \label{fig:incoming_citations_distribution_ccdf}
 \end{figure}
 
-\begin{table}[]
-\centering
-\begin{tabular}{@{}lr@{}}
-\toprule
-\multicolumn{1}{c}{\textbf{Journal}} & \textbf{Wikipedia citations} \\ \midrule
-PNAS                                 & 16273                        \\
-Nature                               & 13403                        \\
-Science                              & 11019                        \\
-Journal of Biological Chemistry      & 8587                         \\
-Genome Research                      & 6850                         \\ \bottomrule
-\end{tabular}
-\caption{Top 5 journals cited in Wikipedia articles, with the number of distinct citations in different articles.}
-\label{tbl:top_cited_wikipedia_journals}
-\end{table}
+% \begin{table}[]
+% \centering
+% \begin{tabular}{@{}lr@{}}
+% \toprule
+% \multicolumn{1}{c}{\textbf{Journal}} & \textbf{Wikipedia citations} \\ \midrule
+% PNAS                                 & 16273                        \\
+% Nature                               & 13403                        \\
+% Science                              & 11019                        \\
+% Journal of Biological Chemistry      & 8587                         \\
+% Genome Research                      & 6850                         \\ \bottomrule
+% \end{tabular}
+% \caption{Top 5 journals cited in Wikipedia articles, with the number of distinct citations in different articles.}
+% \label{tbl:top_cited_wikipedia_journals}
+% \end{table}
 
-Figure~\ref{fig:incoming_citations_distribution_ccdf} shows the cumulative distribution of the incoming citations of papers in Wikipedia compared to the top 5 cited papers in Wikipedia, represented in Table~\ref{tbl:top_cited_wikipedia_journals}.
+Figure~\ref{fig:incoming_citations_distribution_ccdf} shows the cumulative distribution of the incoming citations of papers in Wikipedia compared to the top 5 cited papers in Wikipedia, represented in Table~\ref{tbl:top20_cited_wikipedia_journals}.
 First of all, papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
 This is expected and we would be surprise if that was not the case.
 For instance, 74\% of papers in Wikipedia have at least 10 incoming citations, while only 13\% of papers taken random from the \ac{MAG} have at least 10 incoming citations.
@@ -133,6 +133,7 @@ For instance, Larsen et al.~\cite{Larsen2010} in 2010 studied the growth using d
 They showed that there are many other factors that determine the growth of publications that should be considered.
 
 We have reproduced the result of Larsen et al.\ using the linear regression method, and we have obtained comparable results: the overall growth rate that we have found is 3,98\% and the doubling time is 17,4 years.
+The $r^2$ value obtained is 0,9875, which tells us that the fit is accurate.
 Figure~\ref{fig:publication_date_regression} compares the actual growth with the one we have derived.
 
 \begin{figure}[h]
@@ -179,6 +180,7 @@ However, these cases do not play a major role in the overall distribution since 
         \caption{Cumulative distribution of the age of papers when they appear for the first time on Wikipedia.}
 \label{fig:age_of_papers_at_first_appearance_cdf}
     \end{subfigure}
+    \caption{}
 \end{figure}
 
 \subsection{Lifetime of irrelevant citations inside an article}
@@ -265,4 +267,78 @@ Considering the fact that more than 20\% of irrelevant \acp{ISBN} and \acp{DOI} 
 \label{fig:irrelevant_identifiers_count}
 \end{figure}
 
-%A word of caution: we assume that if an identifier has been removed from a page and it is not present in the last revision at the time of the dump, then its appearance in the page is not relevant.
+\subsection{Journals' citations}
+Nielsen~\cite{Nielsen2007} in 2007 ranked scientific journals according to the number of citations found in Wikipedia and found that this measure correlates with the impact factor of such journals.
+We reproduce its experiment by considering also the impressions of journals derived by the page views dataset we created.
+Information about journals' impact factor and number of citations is taken from the \ac{JCR} from Thomson Reuters.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\textwidth]{assets/journals_compare_appearances}
+        \caption{Comparison between citations from scientific journals and from Wikipedia on a log-log scale. Each dot represents the target journal receiving the citations.}
+\label{fig:journals_compare_appearances}
+    \end{subfigure}
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \includegraphics[keepaspectratio=true, width=\textwidth]{assets/journals_compare_impressions2014}
+        \caption{Comparison between citations from scientific journals and impressions on Wikipedia in the 2014 on a log-log scale. Each dot represents the target journal receiving the citations.}
+\label{fig:journals_compare_impressions2014}
+    \end{subfigure}
+    \caption{}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true, width=\textwidth]{assets/journals_appearances_impressions_loglog}
+\caption{Comparison between two ranking metrics for journals cited in Wikipedia.
+Each dot represents a scientific journal.
+On the ordinate, the number of impressions made in 2014 on the English Wikipedia;
+on the x-axis, the number of citations found in Wikipedia.
+The interpolating line has been created using the linear regression method on the logarithmic transformation of both the coordinates.}
+\label{fig:journals_appearances_impressions_loglog}
+\end{figure}
+
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}lr@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{Journal}} & \textbf{Wikipedia citations} \\ \midrule
+PNAS  &  16273 \\
+Nature  &  13403 \\
+Science  &  11019 \\
+Journal of Biological Chemistry  &  8587 \\
+Genome Research  &  6850 \\
+PLOS ONE  &  5470 \\
+Nature Genetics  &  5151 \\
+Cell  &  3882 \\
+Biochemical and Biophysical Research Communications  &  3574 \\
+Genomics  &  3351 \\
+Nucleic Acids Research  &  2991 \\
+Gene  &  2706 \\
+Astronomy and Astrophysics  &  2654 \\
+FEBS Letters  &  2543 \\
+The New England Journal of Medicine  &  2299 \\
+The Astrophysical Journal  &  2159 \\
+The EMBO Journal  &  2062 \\
+BMJ  &  1961 \\
+Molecular Phylogenetics and Evolution  &  1903 \\
+The Lancet  &  1891 \\
+\bottomrule
+\end{tabular}
+\caption{Top 20 journals cited in Wikipedia articles, with the number of distinct citations in different articles.}
+\label{tbl:top20_cited_wikipedia_journals}
+\end{table}
+
+Figure~\ref{fig:journals_compare_appearances} compares the number of Wikipedia citations for each journal with a derived measure of its quality, namely the total number of citations of its papers times its impact factor.
+The Kendall's rank correlation between these metrics is 0,464 which is consistent with the results of Nielsen.
+Indeed we find that top journals cited in Wikipedia are also the most important ones in term of citations in the scientific community (shown in Table~\ref{tbl:top20_cited_wikipedia_journals}).
+In Figure~\ref{fig:journals_compare_impressions2014} we also compare the views each journal had in Wikipedia in 2014 (exploiting the dataset we created) and results are similar (the Kendall's coefficient is 0.401).
+
+The fact that the two coefficient are similar is expected.
+Indeed the relation between journals' citation in Wikipedia and impressions made in the 2014 is linear, as can be seen in Figure~\ref{fig:journals_appearances_impressions_loglog}.
+The line that interpolates points has been found using the linear regression method over the logarithmic transformation of the coordinates, with an $r^2$ value of 0,66.
+
+Nielsen claimed that ``use of structured scientific citations in Wikipedia will very likely continue to grow and increasingly benefit researchers'', and our study indeed confirms its theory 8 years later.
