@@ -21,8 +21,15 @@ Indeed we make use of the UniTN cluster infrastructure to split the work among m
 We also develop a framework to analyze Wikipedia dumps that can be used to extract arbitrary features, such as the publication identifiers for scholarly works appearing in articles.
 With the extracted data, we analyze some of the patterns involving the behavior of such citations.
 
-In Chapter~\ref{cha:background} we describe background concepts including publication identifiers, the Wikipedia structure and available resources, the Microsoft Academic Service that we exploit to understand links between academic papers and a brief overview of the Apache Spark framework.
+In particular, we analyze the quality of papers cited in the English Wikipedia in term of citations and we show how they tend to be more popular with respect to the ones released by journals like \emph{Science} or \emph{Nature}.
+We also compare the most cited journals in Wikipedia with their ranking in the \ac{JCR}, showing that a correlation exists between the two.
+Furthermore, we analyze how long it takes for the Wikipedia community to remove references that are not relevant for a certain article.
+Indeed many of them are removed within one day after the insertion, possibly because of the effort made by contributors to maintain the quality of the articles.
+An overview of the age of papers when they first appear shows that some authors look forward to insert their publication in Wikipedia articles as soon as they are released.
+
+
+In Chapter~\ref{cha:background} we describe background concepts including publication identifiers, the Wikipedia structure and available resources, the Microsoft Academic Service that we exploit to understand links between academic papers and we briefly present the Apache Spark framework.
 Chapter~\ref{cha:system_architecture} examines in detail the infrastructure used to recreate the page views dataset, the structure and problems of datasets and the implementation of the software developed.
-Chapter~\ref{cha:data_analysis} analyzes the behavior of scholarly citations in Wikipedia extracted using the developed software.
+In Chapter~\ref{cha:data_analysis} we present analyses regarding the behavior of scholarly citations in Wikipedia extracted using the developed software.
 Chapter~\ref{cha:Contributions} shows the dataset and the programs developed and
 in Chapter~\ref{cha:conclusion} we show what can be refined and we present some starting point for further research.
