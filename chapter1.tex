@@ -113,15 +113,18 @@ The paper also discovered that 55\% of Wikipedia articles are redirects.
 We have replicated their work using the latest data available and results are consistent with the original ones: at the time of writing, 59\% of Wikipedia articles are redirects (Table~\ref{tbl:redirects}).
 This is particularly important in our analysis when we analyze how many users visited a page, because we must follow the redirects to get the correct count.
 
-\begin{table}[]
+\begin{table}[t]
 \centering
-\caption{Count of Wikipedia redirects as of 1/9/2015}
-\label{tbl:redirects}
-\begin{tabular}{llll}
-\multicolumn{1}{c}{\textbf{}}          & \multicolumn{1}{c}{\textbf{\# Redirects}} & \multicolumn{1}{c}{\textbf{\# Pages}} & \textbf{Percentage} \\ \hline
-\multicolumn{1}{l|}{All namespaces}    & 8350978                                & 37178009                               & 22,46\%             \\
-\multicolumn{1}{l|}{Article namespace} & 7075838                                & 11941857                               & 59,25\%
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{}} & \textbf{\# Redirects} & \textbf{\# Pages} & \textbf{Percentage of redirects} \\
+\midrule
+All namespaces    & 8350978                                & 37178009                               & 22,46\%             \\
+Article namespace & 7075838                                & 11941857                               & 59,25\% \\
+\bottomrule
 \end{tabular}
+\caption{Count of Wikipedia redirects as of the 1st of September 2015}
+\label{tbl:redirects}
 \end{table}
 
 \paragraph{Vandalism}
