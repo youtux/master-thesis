@@ -125,7 +125,7 @@ Wikipedia articles tend to cite papers which are released in the last few years.
 This is expected because every year authors replicate and extend previous works and only the newer ones tend to be cited.
 
 From the plot we can also see that the number of papers published increases each year.
-In 1961, Price~\cite{Price1961} studied the growth of scientific publications covering the period from the 1650 to the 1950.
+In 1961, de Solla Price~\cite{DeSollaPrice1961} studied the growth of scientific publications covering the period from the 1650 to the 1950.
 The results showed a growth rate of about 5.6\% per year and a doubling time of 13 years.
 
 This study has been proposed again by many, showing that the growth rate varies depending on the dataset used and the period of time analyzed.
@@ -277,16 +277,19 @@ Information about journals' impact factor and number of citations is taken from 
     \begin{subfigure}{1\textwidth}
         \centering
         \includegraphics[keepaspectratio=true, width=\textwidth]{assets/journals_compare_appearances}
-        \caption{Comparison between citations from scientific journals and from Wikipedia on a log-log scale. Each dot represents the target journal receiving the citations.}
+        % \caption{Comparison between citations from scientific journals and from Wikipedia on a log-log scale. Each dot represents the target journal receiving the citations.}
 \label{fig:journals_compare_appearances}
     \end{subfigure}
     \begin{subfigure}{1\textwidth}
         \centering
         \includegraphics[keepaspectratio=true, width=\textwidth]{assets/journals_compare_impressions2014}
-        \caption{Comparison between citations from scientific journals and impressions on Wikipedia in the 2014 on a log-log scale. Each dot represents the target journal receiving the citations.}
+        % \caption{Comparison between citations from scientific journals and impressions on Wikipedia in the 2014 on a log-log scale. Each dot represents the target journal receiving the citations.}
 \label{fig:journals_compare_impressions2014}
     \end{subfigure}
-    \caption{}
+    \caption{Comparison between journals' ranking metrics. Each dot represents the target journal.
+    On the ordinate of both plots, the number of citations of a journal times its impact factor according to JCR in 2014.
+    On the x-axis, the number of Wikipedia citations of each journal in the first plot and the number of impressions in the 2014 in the second one.}
+\label{fig:journals_compare}
 \end{figure}
 
 \begin{figure}[h]
@@ -332,10 +335,10 @@ The Lancet  &  1891 \\
 \label{tbl:top20_cited_wikipedia_journals}
 \end{table}
 
-Figure~\ref{fig:journals_compare_appearances} compares the number of Wikipedia citations for each journal with a derived measure of its quality, namely the total number of citations of its papers times its impact factor.
+The first plot of Figure~\ref{fig:journals_compare} compares the number of Wikipedia citations for each journal with a derived measure of its quality, namely the total number of citations of its papers times its impact factor.
 The Kendall's rank correlation between these metrics is 0,464 which is consistent with the results of Nielsen.
 Indeed we find that top journals cited in Wikipedia are also the most important ones in term of citations in the scientific community (shown in Table~\ref{tbl:top20_cited_wikipedia_journals}).
-In Figure~\ref{fig:journals_compare_impressions2014} we also compare the views each journal had in Wikipedia in 2014 (exploiting the dataset we created) and results are similar (the Kendall's coefficient is 0.401).
+In the second plot of Figure~\ref{fig:journals_compare} we also compare the views each journal had in Wikipedia in 2014 (exploiting the dataset we created) and results are similar (the Kendall's coefficient is 0.401).
 
 The fact that the two coefficient are similar is expected.
 Indeed the relation between journals' citation in Wikipedia and impressions made in the 2014 is linear, as can be seen in Figure~\ref{fig:journals_appearances_impressions_loglog}.
