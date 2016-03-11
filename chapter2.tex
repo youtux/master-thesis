@@ -69,9 +69,9 @@ It is divided in 187 XML files compressed with 7zip, each of them containing sev
 An extract of a dump is shown in Listing~\ref{lst:page_xml_extract}.
 Every file contains a ``preamble'' with various metadata.
 We can find the XML Schema location, the name of the project inside the \mintinline{text}{<siteinfo>} tag, the list of namespaces up-to-date.
-This is followed by a sequence of \mintinline{xml}{<page>} elements, each of them describing a Wikimedia page: its title, the namespace and the id.
+This is followed by a sequence of \mintinline{text}{<page>} elements, each of them describing a Wikimedia page: its title, the namespace and the id.
 Notice that if the title contains a space, it is not replaced by an underscore.
-After that there is sequence of \mintinline{xml}{<revision>} tags.
+After that there is sequence of \mintinline{text}{<revision>} tags.
 A revision is identified by an identifier, and usually have also reference (parent id) to the previous reference.
 In the case of the first revision of a page, this field is left empty.
 There are some other metadata fields, like the timestamp, the contributor and the comment.
