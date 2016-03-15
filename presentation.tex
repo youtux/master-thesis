@@ -28,12 +28,12 @@
 % which change the colors and layouts of slides. Below this is a list
 % of all the themes, uncomment each in turn to see what they look like.
 
-%\usetheme{default}
-%\usetheme{AnnArbor}
-%\usetheme{Antibes}
-%\usetheme{Bergen}
-%\usetheme{Berkeley}
-%\usetheme{Berlin}
+% \usetheme{default}
+% \usetheme{AnnArbor}
+% \usetheme{Antibes}
+% \usetheme{Bergen}
+% \usetheme{Berkeley}
+% \usetheme{Berlin}
 %\usetheme{Boadilla}
 \usetheme{CambridgeUS}
 %\usetheme{Copenhagen}
@@ -60,25 +60,25 @@
 % for any slide theme. Uncomment each of these in turn to see how it
 % changes the colors of your current slide theme.
 
-%\usecolortheme{albatross}
-%\usecolortheme{beaver}
-%\usecolortheme{beetle}
-%\usecolortheme{crane}
-\usecolortheme{dolphin}
-%\usecolortheme{dove}
-%\usecolortheme{fly}
-%\usecolortheme{lily}
-% \usecolortheme{orchid}
-%\usecolortheme{rose}
-%\usecolortheme{seagull}
-%\usecolortheme{seahorse}
-%\usecolortheme{whale}
-%\usecolortheme{wolverine}
+% \usecolortheme{albatross}
+% \usecolortheme{beaver}
+% \usecolortheme{beetle}
+% \usecolortheme{crane}
+\usecolortheme{dolphin} % OK
+% \usecolortheme{dove}
+% \usecolortheme{fly}
+% \usecolortheme{lily} % OK, red and grey
+% \usecolortheme{orchid} % OK, red and grey with blocks blue
+% \usecolortheme{rose} % OK, red and grey with light blue blocks
+% \usecolortheme{seagull}
+% \usecolortheme{seahorse}
+% \usecolortheme{whale}
+% \usecolortheme{wolverine}
 
-%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+% \setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
 %\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
 
-%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 \setbeamercovered{transparent}
 }
 
@@ -92,9 +92,8 @@
 \title[Scholarly citations in Wikipedia]{An analysis of scholarly citations in Wikipedia} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Alessio Bogon} % Your name
-\institute[Unitn] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
-{
-University of Trento \\ % Your institution for the title page
+\institute[University of Trento] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{University of Trento \\ % Your institution for the title page
 Department of Information Engineering and Computer Science \\
 \medskip
 Master Degree in Computer Science
@@ -170,7 +169,7 @@ Master Degree in Computer Science
 \subsection{Available datasets}
 \begin{frame}{Available datasets}
 \begin{itemize}
-    \item Microsoft Academic Graph: a dataset containing all the papers every published with authors, references, journals, conferences, etc.
+    \item Microsoft Academic Graph: a dataset containing data about papers, authors, references, journals, conferences, etc.
     \item Wikipedia dumps: text of all page revisions since the beginning
     \item Wikimedia hourly page view statistics
 \end{itemize}
@@ -178,7 +177,8 @@ Master Degree in Computer Science
 
 \begin{frame}{Microsoft Academic Graph}
     \begin{itemize}
-        \item Dataset size: 96 GB
+        \item Dataset powering the Microsoft Academic Search engine
+        \item Size: 96 GB
         \item Contains over 120M papers (1800 -- 2016)
         \item Information about authors, references, journals, conferences, keywords, etc.
         \item Problems
@@ -199,10 +199,10 @@ Master Degree in Computer Science
 \end{itemize}
 \end{frame}
 
-\section{Methodology?}
+\section{Data manipulation}
 
 \begin{frame}[c]
-\Huge{\centerline{Methodology?}}
+\Huge{\centerline{Data manipulation}}
 \end{frame}
 
 \subsection{Extracting citations from Wikipedia}
@@ -242,7 +242,7 @@ Master Degree in Computer Science
             \item Highly parallelizable
             \item Written in Python
             \item[]
-            \item Processed 445M page revisions (13,3 TB) in 21 hours
+            \item Processed 445M page revisions (13,3~TB) in 21 hours
         \end{itemize}
         \column{.4\textwidth}
         \begin{table}
@@ -267,7 +267,7 @@ Master Degree in Computer Science
     \begin{block}{Problems}
         \begin{itemize}
             \item Dataset size: 23 TB (4,7 TB for the 2014)
-            \item Aggregated and ordered by hour (~8670 files per year)
+            \item Aggregated and ordered by hour (8670 files per year)
             \item They need to be cleaned
             \item They need to be \textbf{reordered}
             \item Unfeasible on a single machine
@@ -316,9 +316,145 @@ Master Degree in Computer Science
 \Huge{\centerline{Results}}
 \end{frame}
 
-\subsection{Result 1}
-\begin{frame}
+\begin{frame}{Quality of papers in Wikipedia}
+\begin{itemize}
+    \item Age of papers when inserted
+    \item Incoming citations distribution
+    \item Journals rank
+    \item Lifetime of citations
+\end{itemize}
+\end{frame}
 
+\subsection{Age of papers when inserted}
+\begin{frame}{Age of papers when inserted}
+    \begin{itemize}
+        \item How old is a paper when it is insterted in Wikipedia for the first time?
+        \item Interesting behavior of papers having few days
+    \end{itemize}
+\end{frame}
+
+\subsection{Age of papers when inserted}
+\begin{frame}{Age of papers when inserted}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/age_of_papers_at_first_appearance_cdf_slides}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Age of papers when inserted --- Detail}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/age_of_papers_at_first_appearance_pdf_near0_slides}
+    \end{figure}
+    \centering
+    1.3\% of papers are inserted within 7 days after the publication
+\end{frame}
+
+
+\subsection{Incoming citations distribution}
+\begin{frame}{Incoming citations distribution}
+    \begin{columns}
+        \column{0.3\textwidth}
+        \begin{itemize}
+            \item Arguably follows a power law~\cite{Redner1998}: $N(x) \sim x^{-\alpha}$
+            \item How well papers in Wikipedia perform?
+        \end{itemize}
+        \column{0.7\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{assets/incoming_citations_distribution_pdf_slides}
+        \end{figure}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{Incoming citations distribution}
+    \begin{columns}
+        \column{0.4\textwidth}
+        \begin{itemize}
+            \item Papers in Wikipedia behave like \emph{Genome Research} and \emph{PNAS}
+            \item They outclass \emph{Nature} and \emph{Science}
+            \item 75\% of papers in Wikipedia have more than 10 incoming citations
+        \end{itemize}
+        \column{0.6\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{assets/incoming_citations_distribution_ccdf_slides}
+        \caption{Papers cited in Wikipedia vs papers in top journals}
+        \end{figure}
+    \end{columns}
+\end{frame}
+
+\subsection{Journals rank}
+\begin{frame}{Journals rank}
+    \begin{itemize}
+        \item First proposed by Nielsen in 2007~\cite{Nielsen2007}
+        \item Most cited journals in Wikipedia are also the most important ones
+        \item[]
+        \item Journals rank by impact factor versus:
+        \begin{itemize}
+            \item citations in Wikipedia
+            \item visualizations in Wikipedia (in 2014)
+        \end{itemize}
+        \item Measured in term of Kendall rank correlation coefficient ($-1 \le \tau \le 1$)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Journals impact factor vs Wikipedia citations}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/journals_compare_appearances}
+    \end{figure}
+    \centering
+    Kendall rank correlation coefficient: $0.464$
+\end{frame}
+
+\begin{frame}{Journals impact factor vs Wikipedia impressions}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/journals_compare_impressions2014}
+    \end{figure}
+    \centering
+    Kendall rank correlation coefficient: $0.401$
+\end{frame}
+
+\begin{frame}{Maybe: Journals citations vs impressions in Wikipedia}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/journals_appearances_impressions_loglog_slides}
+    \end{figure}
+    \centering
+    Linear regression model: $\hat{y}_i = 10^{5.03} \times x^{0.98}$ ($r^2=0.65$)
+\end{frame}
+
+\subsection{Lifetime of irrelevant identifiers}
+\begin{frame}{Lifetime of irrelevant identifiers}
+    \begin{itemize}
+        \item How long does it take for a Wikipedia contributor to discover and remove an ``irrelevant'' paper from an article?
+        \item An identifier is ``irrelevant'' for an article if it appeared on that page and was then removed.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{columns}[c]
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Fraction of identifiers removed in time % (970\,273 in total)
+            \item[]
+            \item 60\% of irrelevant DOI removed within one year
+            \item 35\% within one month
+            \item 20\% within one day
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{assets/irrelevant_identifiers_persistence_cdf_max_slides}
+
+        \includegraphics[width=1\textwidth]{assets/irrelevant_identifiers_persistence_cdf_1month_slides}
+
+        \includegraphics[width=1\textwidth]{assets/irrelevant_identifiers_persistence_cdf_1day_slides}
+        \end{figure}
+    \end{columns}
 \end{frame}
 
 \section{Conclusion}
@@ -327,10 +463,6 @@ Master Degree in Computer Science
 \Huge{\centerline{Conclusion}}
 \end{frame}
 
-\subsection{Conclusion}
-\begin{frame}
-
-\end{frame}
 
 
 % \begin{frame}
@@ -910,9 +1042,9 @@ Master Degree in Computer Science
 % \end{algorithm}
 % \end{frame}
 
-\begin{frame}
+\begin{frame}[allowframebreaks]{References}
     \bibliographystyle{unsrt}
-\bibliography{biblio}
+    \bibliography{biblio}
 \end{frame}
 
 
