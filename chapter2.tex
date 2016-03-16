@@ -1,8 +1,8 @@
 % !TEX root = thesis.tex
 \cleardoublepage{}
-\chapter{System architecture}
+\chapter{Data manipulation}
 \label{cha:system_architecture}
-This section analyzes in detail the structure of the datasets, their problems and their peculiarities.
+This chapter analyzes in detail the structure of the datasets, their problems and their peculiarities.
 Also, we give a description of the machines used to execute our software, together with a description of what the various components do.
 
 \section{Infrastructure}
@@ -12,15 +12,15 @@ Its specification can be found in Table~\ref{tbl:tech_specs}.
 Its storage is limited to 500 GB and because of the size of our datasets it was not possible to run the programs on all of them.
 
 For this reason University of Trento allowed us to use one of their machines called ``adige''.
-Its hardware is not very different from the MacBook (see Table~\ref{tbl:tech_specs}).
+Its hardware is not much different from the MacBook (see Table~\ref{tbl:tech_specs}).
 Since we are going to need at least 866 GB just to store the Wikimedia page view statistics, the network office also allocated a 4 TB network disk.
 This machine is always on, so we can launch the programs and retrieve the results as soon as they finish, without worrying of system reboots.
 
 Even though the disk space is not a problem, the processing power is still an issue when we want to sort the page view statistics, as described in Section~\ref{sub:Sorting pagecounts}.
 To mitigate this problem, we exploit the UniTN Cisca cluster.
-It consist of circa 125 workstations, each of them having 4 cores available.
+It consist of 125 workstations, each of them having 4 cores available.
 The technical specifications of the single workstation are not impressive (see Table~\ref{tbl:tech_specs}), but the fact that we can use more than 500 cores in total makes the difference.
-This required some effort because Torque, the queue manager involved, is not easy to understand and the documentation of the command line programs was not easily reachable.
+The setup of the cluster required some effort because Torque, the queue manager involved, is not easy to understand and the documentation of the command line programs is not easily reachable.
 
 \begin{table}[t]
 \centering
@@ -43,9 +43,9 @@ Network card                  & 1 GBps                         & 1 GBps         
 
 \subsection{Wikimedia dumps}
 \label{sec:Wikipedia dumps}
-The Wikimedia foundation creates a dump of the publicly available data of Wikipedia and all WMF projects on a regular basis.
-English Wikipedia is dumped once a month, while smaller projects are often dumped twice a month.
-The Wikimedia datasets used for our research are the one released the 1st of September 2015\footnote{\url{https://dumps.wikimedia.org/enwiki/20150901/}}.
+The Wikimedia foundation creates a dump of the publicly available data of Wikipedia and all the Wikimedia Foundation projects on a regular basis.
+The English Wikipedia is dumped once a month, while smaller projects are often dumped twice a month.
+The Wikimedia datasets used for our research are the one released on September 1st, 2015\footnote{\url{https://dumps.wikimedia.org/enwiki/20150901/}}.
 
 \begin{table}[t]
 \centering
@@ -64,20 +64,20 @@ Redirect table          &      96.9 MB &       364.3 MB & 26.60 \% \\
 
 \paragraph{Pages XML dump}
 The most important dataset for our purposes is the dump of all the pages, which include every revision created so far.
-As you can see in Table~\ref{tbl:wikidumps_size}, this dataset is the most large: its uncompressed size is 13\,387.9 GB\@.
-It is divided in 187 XML files compressed with 7zip, each of them containing several pages.
+As you can see in Table~\ref{tbl:wikidumps_size}, this dataset is the most large: its uncompressed size is 13\,388 GB\@.
+It is divided in 187 XML files compressed with 7zip, each of them containing several Wikipedia pages.
 An extract of a dump is shown in Listing~\ref{lst:page_xml_extract}.
 Every file contains a ``preamble'' with various metadata.
 We can find the XML Schema location, the name of the project inside the \mintinline{text}{<siteinfo>} tag, the list of namespaces up-to-date.
 This is followed by a sequence of \mintinline{text}{<page>} elements, each of them describing a Wikimedia page: its title, the namespace and the id.
 Notice that if the title contains a space, it is not replaced by an underscore.
 After that there is sequence of \mintinline{text}{<revision>} tags.
-A revision is identified by an identifier, and usually have also reference (parent id) to the previous reference.
+A revision is identified by an integer and usually has a reference (parent id) to the previous revision.
 In the case of the first revision of a page, this field is left empty.
 There are some other metadata fields, like the timestamp, the contributor and the comment.
 Finally, we can find the actual source of the page in plain text format.
 
-Thanks to the structure of the file, it is relatively easy to analyze the file iterating over the XML elements without loading it entirely in memory.
+Thanks to the structure of the file, it is possible to examine the file iterating over the XML elements without loading it entirely in memory.
 
 \begin{listing}[t]
     \inputminted[breaklines=true]{xml}{assets/page_xml_extract.xml}
@@ -108,13 +108,13 @@ There are other columns that are used by the MediaWiki software, such as the res
 \subsection{Wikimedia pagecounts}
 The Wikimedia page view statistics dataset, also known as \emph{pagecounts-raw}, can be downloaded directly from the Wikimedia downloads directory\footnote{\url{https://dumps.wikimedia.org/other/pagecounts-raw/}}.
 It is a fairly huge source of data: the dataset compressed size of just the year 2014 is 866 GB, distributed in 8756 files.
-It is generated by the Wikimedia cache servers: every time a reader request a page a log entry is created and the page is served.
+It is generated by the Wikimedia cache servers: every time a reader request a page, a log entry is created and the page is served.
 Notice that the cache server does not know if the requested page is an article, a special page, a redirect or even if it exists.
 Furthermore, if a page request contain spaces, these are replaced with underscores, because the MediaWiki software uses this convention.
 
 Every file of this dataset contains the aggregated page view for a specific hour.
 Files use a CSV dialect with \emph{spaces} as separators and they are compressed using the gzip format.
-The encoding of this file is not documented.
+The encoding of these files is not documented.
 Many of them seem to use UTF-8, while others ISO-8859-2. % chktex 8
 We use the first decoder for all the files, and whenever a Unicode endpoint cannot be found, we replace it with the official \texttt{U+FFFD} replacement character.
 
@@ -190,9 +190,9 @@ Another problem we have found is a bias in the \emph{Conferences} table: it seem
 A great amount of time has been spent on the \emph{pagecounts-raw} dataset.
 Currently it is partitioned by the timestamp of each hour.
 This representation is useful if you need to get the views for a certain hour, but as soon as you want to get the all the hourly views for an article it is simply not feasible.
-Indeed, you would need to sequentially scan all the 8756 files (just for the year 2014), decompressing them on the fly.
+Indeed, you would need to sequentially scan all the 8756 files (just for the year 2014).
 Also, you could not perform any search optimization based on bisection, since the content inside the files is not ordered nor normalized.
-Therefore we decided to reorganize this dataset, normalizing the content and sorting it by the (project, page, timestamp) \emph{key}, without losing information.
+Therefore we decided to reorganize this dataset, normalizing the content and sorting it by $(project, page, timestamp)$, without losing information.
 
 The program written for this purposes is a Spark job, using the Python programming language.
 
@@ -205,12 +205,12 @@ Multiple lines that refer to the same page are merged by summing the count of th
 A \emph{key function} is also defined: it takes a tuple of the form $(timestamp, project, page, counts, bytes)$ and returns the $(project, page)$ key.
 
 To repartition the entities, we need to fix the number of output partition.
-We fixed this value to the number $N$ of input files.
+We fixed this value to the number of input files.
 
 Now we want to create a \emph{range partitioner}, a function that takes a tuple and returns the index of the new partition it belongs to.
 Notice that Python implicitly defines an ordering between tuples by comparing their fields one at a time.
 To create this function, we take an ordered sample of the keys of the first \ac{RDD} and enumerate it.
-This enumeration is in fact a mapping between a key (project, page) and a partition index.
+This enumeration is in fact a mapping between a key $(project, page)$ and a partition index.
 When looking for the partition for a new tuple $t$, it is sufficient to return the index corresponding to the last key which is less or equal to $t$.
 Since the enumeration is ordered, the search can be optimized using the bisect algorithm.
 
@@ -224,7 +224,7 @@ The dataset is actually split in multiple gzipped CSV files, one for each partit
 Since this job is highly parallelizable, we exploit the UniTN Cisca cluster described in Section~\ref{sec:infrastructure}.
 Spark ships with a cluster manager which makes this operation more or less painless.
 It is sufficient to start the Spark executable on the workstations and wait for them to connect to the master server.
-Once they are ready, it is sufficient to launch the job on the master, and it automatically splits the tasks between the workers.
+Once they are ready, it is sufficient to launch the job on the master, and the framework automatically splits the tasks between the workers.
 
 \subsection{Analyzing Wikipedia dumps}
 \label{sub:Analyzing Wikipedia dumps}
@@ -239,8 +239,8 @@ First of all, we do not want to analyze pages which are not articles, i.e.\ page
 Secondly, the text of a revision should be stripped of comments, which may contain information which is not visible by the viewers.
 
 Since we want to build the history of the appearances, we have to decide an ordering mechanism.
-Since revisions have an id and a parent id, at first we tried to use the topological ordering of the directed graph induced by the ``parent of'' relation, from now on the \emph{history graph}.
-On some pages this worked fine, but soon we discovered that it may contain cycles, so we decided to order the revisions by their timestamp.
+At first we tried to use the topological ordering of the directed graph induced by the ``parent of'' relation.
+On some pages this worked fine, but soon we discovered that the graph may contain cycles, so we decided to order the revisions by their timestamp.
 
 The output is a CSV file, each line describing the appearance of an identifier inside a page.
 It has the following form:

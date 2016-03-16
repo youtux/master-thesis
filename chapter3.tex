@@ -59,11 +59,10 @@ The number of incoming citation for a paper is determined using the \ac{MAG} dat
 Notice that the only identifier available in the \ac{MAG} is the \ac{DOI}, hence only the papers found in Wikipedia which have a \ac{DOI} are considered.
 This accounts for 28\% of the identifiers found.
 Furthermore, from this set of papers we removed the ones that appears to be ``non-valid'' in the \ac{MAG} dataset, namely the ones that have more than one \ac{DOI}.
-The amount of papers considered at the end is 17\% of the identifiers found in Wikipedia.
 
 This graph alone does not give much information.
 It is more interesting to analyze the \ac{ccdf} of the two series.
-The \ac{ccdf}, or \emph{tail distribution}, expresses the percentage of papers $\bar{F}(x)$ that have at least $x$ citations.
+The \ac{ccdf}, or \emph{tail distribution}, expresses the fraction of papers $\bar{F}(x)$ that have at least $x$ citations.
 
 \begin{figure}[h]
 \centering
@@ -90,9 +89,10 @@ On the ordinate, the fraction of papers having at least $x$ incoming references.
 
 Figure~\ref{fig:incoming_citations_distribution_ccdf} shows the cumulative distribution of the incoming citations of papers in Wikipedia compared to the top 5 cited papers in Wikipedia, represented in Table~\ref{tbl:top20_cited_wikipedia_journals}.
 First of all, papers appearing in Wikipedia tend to have many more incoming citations with respect to a random paper taken from all the available ones.
-This is expected and we would be surprise if that was not the case.
+This is expected and we would be surprised if that was not the case.
 For instance, 74\% of papers in Wikipedia have at least 10 incoming citations, while only 13\% of papers taken random from the \ac{MAG} have at least 10 incoming citations.
-The ``goodness'' of the Wikipedia ones is second only to papers that have been published in \emph{Genome Research} or \emph{PNAS}, while they outclass journals like \emph{Science} and \emph{Nature}.
+It is more interesting to compare the ``goodness'' of papers in Wikipedia with the one published on top journals.
+Indeed papers cited in Wikipedia behave like the ones published in \emph{Genome Research} or \emph{PNAS}, while they outclass journals like \emph{Science} and \emph{Nature}.
 
 However, we have to keep in mind that Wikipedia contains a selection of papers and thus it is just a confirmation that they already had an impact on the scientific community.
 

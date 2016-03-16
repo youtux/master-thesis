@@ -4,28 +4,28 @@
 \label{introduction}
 \addcontentsline{toc}{chapter}{Introduction} % add me to the index anyway
 Ever since Wikipedia was a few years old, there have been numerous academic studies about it.
-Many of them analyze the production and reliability of the encyclopedia content, such as comparing the quality of articles to the Encyclopædia Britannica~\cite{Giles2005}.
+Many of them analyzed the production and reliability of the encyclopedia content, such as comparing the quality of articles to the Encyclopædia Britannica~\cite{Giles2005}.
 Others have studied the social aspect, such as usage and administration.
 For instance, Priedhorsky et al.~\cite{Priedhorsky2007} studied the population of Wikipedia contributors and the impact of false content in term of page visualizations.
 Page visualizations plays an important role in recent studies:
 for instance, McIver et al.~\cite{McIver2014} built a predictive model for the spread of influenza-like illness in the United States and Moat et al.~\cite{Moat2013} implemented a stock market moves strategy based on Wikipedia views.
 
 It is very interesting to see that it is possible to predict behavior of many phenomena from the usage of Wikipedia.
-Unfortunately, the page views dataset suffers from technical debt and it is not really suited for large-scale analysis.
+Unfortunately, the page views dataset have many problems and due to its size and its ordering it is not really suited for large-scale analysis.
 
 We want to address this problem by providing a clean dataset which supports efficient analysis of page visualization.
-The main difficulty for such task is given by the size of the dataset: its size is 4 728 GB for just the 2014, while the overall size up (from the 2008 to the 2015) is estimated to be 23 TB.
+The main difficulty for such task is given by the size of the dataset: it consists of 4\,728~GB for just the 2014, while the overall size (from the 2008 to the 2015) is estimated to be 23~TB.
 While the space requirements can be addressed, the computational power required is problematic.
 Indeed we make use of the UniTN cluster infrastructure to split the work among multiple machines, exploiting the Apache Spark framework.
 
 We also develop a framework to analyze Wikipedia dumps that can be used to extract arbitrary features, such as the publication identifiers for scholarly works appearing in articles.
 With the extracted data, we analyze some of the patterns involving the behavior of such citations.
 
-In particular, we analyze the quality of papers cited in the English Wikipedia in term of citations and we show how they tend to be more popular with respect to the ones released by journals like \emph{Science} or \emph{Nature}.
+In particular, we examine the quality of papers cited in the English Wikipedia in term of incoming citations and we show how they tend to be more popular with respect to the ones released by journals like \emph{Science} or \emph{Nature}.
 We also compare the most cited journals in Wikipedia with their ranking in the \ac{JCR}, showing that a correlation exists between the two.
 Furthermore, we analyze how long it takes for the Wikipedia community to remove references that are not relevant for a certain article.
 Indeed many of them are removed within one day after the insertion, possibly because of the effort made by contributors to maintain the quality of the articles.
-An overview of the age of papers when they first appear shows that some authors look forward to insert their publication in Wikipedia articles as soon as they are released.
+An overview of the age of papers when they first appear in the encyclopedia shows that some authors look forward to insert their publication in Wikipedia articles as soon as they are released.
 
 
 In Chapter~\ref{cha:background} we describe background concepts including publication identifiers, the Wikipedia structure and available resources, the Microsoft Academic Service that we exploit to understand links between academic papers and we briefly present the Apache Spark framework.

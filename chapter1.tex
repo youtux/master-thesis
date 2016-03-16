@@ -6,13 +6,13 @@
 \section{Publication identifiers}
 \label{sec:Publication identifiers}
 In the scientific publishing environment that is increasingly moving online, identifiers of scholarly works plays a major role.
-Indeed articles may be hosted in different places on the web and often there is more than one version of an article available.
+Indeed papers may be hosted in different places on the web and often there is more than one version available.
 Identifiers are crucial to disambiguate articles that may share similar titles, or that  share the same set of authors because of homonymy.
 There are many different types of identifier nowadays, some used more than others.
-This research considers only four of them: \acs{DOI}, \acs{ISBN}, \emph{arXiv} identifier and \acs{PMID}.
+This research considers only four of them: \acs{DOI}, \acs{ISBN}, \emph{arXiv} and \acs{PMID}.
 The choice is based on their popularity in Wikipedia and on technical reasons.
 
-The \acf{DOI} system was created by the International DOI Foundation and was adopted as International Standard (ISO 26324) in 2012.
+The \acf{DOI} system was created by the International DOI Foundation and was adopted as International Standard (ISO~26324) in 2012.
 It originated in a joint initiative of three trade associations in the publishing industry: the \acf{IPA}, the \acf{STM} and the \acf{AAP}.
 Millions of \ac{DOI} names have been assigned to date, through a growing federation of Registration Agencies worldwide.
 For example, the Crossref application is used by more than 4\,800 publishers and societies to enable cross-citation of scholarly publications; the DataCite international federation of data centres uses the \ac{DOI} system; and the Entertainment Identifier Registry applies \ac{DOI} names to film and broadcast assets.
@@ -41,10 +41,10 @@ In Wikipedia many journals citation in the medical field are inserted with the \
 \label{sec:wiki}
 Wikipedia is a free-access, free-content Internet encyclopedia, supported and hosted by the non-profit Wikimedia Foundation.
 Contributors can access the site can edit most of its articles.
-Wikipedia is ranked among the ten most popular websites, and constitutes the Internet's largest and most popular general reference work.
+Wikipedia is ranked among the ten most popular websites, and constitutes the Internet's largest and most popular general reference work~\cite{alexa}.
 A peer review~\cite{Giles2005} of 42 science articles found in both Encyclopædia Britannica and Wikipedia was published in Nature in 2005, and found that Wikipedia's level of accuracy approached Encyclopædia Britannica's.
 Although Wikipedia is arguably the most successful project of the Wikimedia Foundation, there are other projects under its umbrella.
-Among them we can find the following: Wiktionary, a project to create a multilingual free content dictionary in every language; Wikibooks, which aims to build a collection of free e-book resources, including textbooks, language courses, manuals, and annotated public domain books; Wikiversity, a project dedicated to learning materials and learning communities, as well as research.
+Among them we can find: Wiktionary, a project to create a multilingual free content dictionary in every language; Wikibooks, which aims to build a collection of free e-book resources, including textbooks, language courses, manuals, and annotated public domain books; Wikiversity, a project dedicated to learning materials and learning communities, as well as research.
 
 In this section we describe the some of the entities that compose Wikipedia which are relevant to our analysis.
 
@@ -52,8 +52,8 @@ In this section we describe the some of the entities that compose Wikipedia whic
 The basic block of Wikipedia is the \emph{page}.
 Pages are plain text document that can be customized using the wiki markup language, which is rendered when a user requests it.
 
-A Wikipedia \emph{article}, or entry, is a page that contains encyclopedic information.
-A well-written encyclopedia article identifies a notable encyclopedic topic, summarizes that topic comprehensively, contains references to reliable sources and links to other related topics.
+A Wikipedia \emph{article} is a page that contains encyclopedic information.
+A well-written encyclopedia article identifies a notable encyclopedic topic, summarizes that topic comprehensively, contains references to reliable sources and it links to other related topics.
 
 \paragraph{Revisions}
 Every time a \emph{contributor} edits a page, a new \emph{revision} is created.
@@ -80,9 +80,9 @@ Files like images, videos and other assets live under the ``Media'' namespace.
 \paragraph{Contributors}
 Wikipedia \emph{contributors} can either be humans or bots.
 Human contributors are usually referred with the name \emph{Wikipedians}.
-Bots are usually employed to to repetitive and mundane tasks, such as correcting obvious typos, updating listified pages of categories or revert vandalisms.
-At the time of writing the English Wikipedia has more than 27 millions users\footnote{\url{https://en.wikipedia.org/wiki/Wikipedia:Wikipedians}} registered.
-However, only a minority contributes regularly (0,4\% of users edited a page in the last month).
+Bots are usually employed to do repetitive and mundane tasks, such as correcting obvious typos, updating listified pages of categories or revert vandalisms.
+At the time of writing the English Wikipedia has more than 27 millions users registered.
+However, only a minority contributes regularly (0,4\% of users edited a page in the last month)~\cite{wiki:wikipedians}.
 
 \paragraph{Redirects}
 A \emph{redirect} is a page that has no content itself but sends the reader to another page, usually an article or a section of an article.
@@ -123,7 +123,7 @@ All namespaces    & 8350978                                & 37178009           
 Article namespace & 7075838                                & 11941857                               & 59,25\% \\
 \bottomrule
 \end{tabular}
-\caption{Count of Wikipedia redirects as of the 1st of September 2015}
+\caption{Count of redirect pages in the English Wikipedia as of September 1st, 2015}
 \label{tbl:redirects}
 \end{table}
 
@@ -138,7 +138,7 @@ The paper shows some blatant examples of vandalism: for example, Adam Curry alle
 Wikipedia currently uses various techniques to reduce its impact.
 Pages that are considered ``at risk'' are protected in a way that only some users can edit the content.
 Furthermore, administrators can prevent contributors from editing pages by banning them.
-This, however, can not solve the problem definitively because a contributor can change its IP address or create a new fake account.
+However, this can not solve the problem definitively because a contributor can change its IP address or create a new fake account.
 
 %This is a serious problem for any analysis and requires some extra effort to reduce the impact it has in our results.
 
