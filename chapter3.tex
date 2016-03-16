@@ -57,7 +57,7 @@ On the ordinate, the number of papers having exactly $x$ incoming references, gl
 Figure~\ref{fig:incoming_citations_distribution_pdf} compares the distribution of citations of all the papers known to the MAG (circa 120 millions) and the ones whose \ac{DOI} appears in Wikipedia (circa 389k).
 The number of incoming citation for a paper is determined using the \ac{MAG} dataset.
 Notice that the only identifier available in the \ac{MAG} is the \ac{DOI}, hence only the papers found in Wikipedia which have a \ac{DOI} are considered.
-This accounts for 28\% of the identifiers found.
+This accounts for 60\% of the \acp{DOI} found in Wikipedia articles.
 Furthermore, from this set of papers we removed the ones that appears to be ``non-valid'' in the \ac{MAG} dataset, namely the ones that have more than one \ac{DOI}.
 
 This graph alone does not give much information.
@@ -341,7 +341,7 @@ Indeed we find that top journals cited in Wikipedia are also the most important 
 In the second plot of Figure~\ref{fig:journals_compare} we also compare the views each journal had in Wikipedia in 2014 (exploiting the dataset we created) and results are similar (the Kendall's coefficient is 0.401).
 
 The fact that the two coefficient are similar is expected.
-Indeed the relation between journals' citation in Wikipedia and impressions made in the 2014 is linear, as can be seen in Figure~\ref{fig:journals_appearances_impressions_loglog}.
+Indeed the relation between journals' citations in Wikipedia and impressions made in the 2014 is linear, as can be seen in Figure~\ref{fig:journals_appearances_impressions_loglog}.
 The line that interpolates points has been found using the linear regression method over the logarithmic transformation of the coordinates, with an $r^2$ value of 0,66.
 
 Nielsen claimed that ``use of structured scientific citations in Wikipedia will very likely continue to grow and increasingly benefit researchers'', and our study indeed confirms its theory 8 years later.

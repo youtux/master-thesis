@@ -87,11 +87,12 @@ Thanks to the structure of the file, it is possible to examine the file iteratin
 
 \paragraph{Database dumps}
 There are other datasets from Wikipedia that come in form of SQL dump files generated from the MySQL database underneath.
-There is a minor discrepancy between the convention used the XML dumps and these SQL dumps regarding the title of a page.
-While in the former it is not normalized in any way, in the latter spaces are replaced with underscores.
+
+There is a minor discrepancy between the convention used by XML dumps and the SQL dumps regarding the title of a page.
+While in the former the page title is not normalized in any way, in the latter spaces are replaced with underscores.
 It is important to keep it in mind when analyzing these datasets.
 
-The tables used in this project are three: redirects, pages and category links.
+In this project we make use of three tables: redirects, pages and category links.
 The \emph{redirect} dump has all the information needed for the redirect mechanism offered by the MediaWiki software.
 It contains all the information about page redirects, in particular the id of the page from which the redirect starts, the title of the target page and its namespace.
 It also contains other information, but they are not worth of description for our purposes.
@@ -180,7 +181,7 @@ Finally, there are other files that contains information about the \emph{Journal
 
 The main problem of this dataset is that it does not come from an authoritative source; instead it has been generated the pages indexed by the Bing search engine.
 While the authors claim that it scores an ``above 95\% accuracy based on test data sets derived from academic activities at Microsoft Research''~\cite{Sinha2015}, we do not have technical results of this evaluation.
-Another problem we have found is a bias in the \emph{Conferences} table: it seems there are only conferences of the computer science field of study.
+Another problem we have found is that the \emph{Conferences} table is biased: it seems there are only conferences of the computer science field of study.
 
 
 \section{Software}
@@ -249,6 +250,6 @@ en,12,Anarchism,doi,10.1080/07393140701510,2013-05-26T09:12:47Z,2014-06-24T11:52
 en,12,Anarchism,doi,10.1080/07393140701510,2014-06-24T11:56:44Z,
 [...]
 \end{minted}
-Every line contains the project name, the id of the page, the type of identifier, the actual identifier, the timestamp of the moment it appears and the timestamp when it ends.
+Every line contains the project name, the id of the page, the type of identifier, the actual identifier, the timestamp of the moment it appeared and the timestamp when it was removed.
 
 In a successive run, to every line will be added a column representing how many views the identifier had in that period of time, exploiting the pagecounts dataset created.
